@@ -1,29 +1,12 @@
 import axios from "axios" 
-
-export type Author = {
-    // necessary
-    first_name: string,
-    last_name: string,
-    // optional
-    date_of_birth?: number,
-    date_of_death?: number,
-    id?: string
-}
+import { AuthorType, BookType } from "../Types/Types"
 
 
-export type Book = {
-    // necessary
-    title: string,
-    author: string,
-    genre: string
-    // optional
-    year?: number,
-    summary?: string,
-}
 
 const instance = axios.create({
     baseURL: "https://farerlib.onrender.com/api/",
-    withCredentials: true
+    // add later when there is user authentication
+    // withCredentials: true
 })
 
 
@@ -31,7 +14,7 @@ export const booksAPI = {
     getAllBooks() {
         return instance.get(`books`)
     },
-    postBook(newBook:Book) {
+    postBook(newBook:BookType) {
         return instance.post(`books`, {newBook})
     },
     getBookById(bookId:string) {
@@ -46,7 +29,7 @@ export const authorsAPI = {
     getAllAuthors() {
         return instance.get(`authors`)
     },
-    postAuthor(newAuthor:Author) {
+    postAuthor(newAuthor:AuthorType) {
         return instance.post(`authors`, {newAuthor})
     },
 

@@ -4,3 +4,12 @@
   padding: 2rem;
   text-align: center;
 }
+
+
+header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgb(119, 173, 240);
+  padding:1.3rem;
+}

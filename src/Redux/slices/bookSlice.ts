@@ -1,9 +1,10 @@
+import { BookType } from './../../Types/Types';
 import { booksAPI } from './../../API/api';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Book } from '../../API/api';
+
 
 interface BookState {
-    books:Book[] | null,
+    books:BookType[] | null,
     isFetching: boolean
 }
 
@@ -17,8 +18,9 @@ export const getAllBooks = createAsyncThunk(
     async(_,{dispatch})=>{
         dispatch(toggleIsFetching())
         const response = await booksAPI.getAllBooks()
-        console.log(response)
-        dispatch(toggleIsFetching())
+        if (response.status===200) {
+            dispatch(setBooks(response.data))
+        } dispatch(toggleIsFetching())
     }
 )
 
@@ -26,7 +28,7 @@ export const bookSlice = createSlice({
     name:'book',
     initialState,
     reducers: {
-        setBooks:(state, action:PayloadAction<Book[]>)=>{
+        setBooks:(state, action:PayloadAction<BookType[]>)=>{
             state.books = action.payload
         },
         toggleIsFetching:(state)=>{
@@ -37,5 +39,7 @@ export const bookSlice = createSlice({
 
 
 export const {setBooks, toggleIsFetching} = bookSlice.actions
-
 export default bookSlice.reducer
+
+// export const selectBooks = (state: {book: BookState}) => state.book.books
+// export const selectIsFetching = (state: {book: BookState}) => state.book.books
