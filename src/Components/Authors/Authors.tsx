@@ -15,9 +15,10 @@ const Authors = () => {
   const authorsMapped = authors?.map((author,index)=>{
     return <Author key={index} author={author}></Author>
   })
+  console.log(authors)
   return <div className="authors_container">
     {isFetching && <Preloader loadingText="Loading authors..."/>}
-    {authorsMapped}
+    {!isFetching && authorsMapped}
   </div>;
 };
 

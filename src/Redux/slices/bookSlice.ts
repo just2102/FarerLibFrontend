@@ -4,12 +4,12 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 
 interface BookState {
-    books:BookType[] | null,
+    books:BookType[] | [],
     isFetching: boolean
 }
 
 const initialState: BookState = {
-    books: null,
+    books: [],
     isFetching: false
 }
 
@@ -24,6 +24,17 @@ export const getAllBooks = createAsyncThunk(
     }
 )
 
+export const postBookRequest = createAsyncThunk(
+    `books/postBookRequest`,
+    async(book:BookType, {dispatch}) => {
+        const response = await booksAPI.postBook(book)
+        if (response.status===200) {
+            dispatch(addBookSuccess(response.data))
+            return true
+        } else return false
+    }
+)
+
 export const bookSlice = createSlice({
     name:'book',
     initialState,
@@ -33,12 +44,15 @@ export const bookSlice = createSlice({
         },
         toggleIsFetching:(state)=>{
             state.isFetching=!state.isFetching
+        },
+        addBookSuccess:(state,action:PayloadAction<BookType>)=>{
+            state.books = [...state.books, action.payload]
         }
     }
 })
 
 
-export const {setBooks, toggleIsFetching} = bookSlice.actions
+export const {setBooks, toggleIsFetching, addBookSuccess} = bookSlice.actions
 export default bookSlice.reducer
 
 // export const selectBooks = (state: {book: BookState}) => state.book.books

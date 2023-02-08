@@ -8,6 +8,7 @@ const Preloader = ({loadingText}:Props) => {
     return ( 
         <div className="preloader">
             <img src={preloader} alt="" />
+            {loadingText && <p>{loadingText}</p>}
         </div>
      );
 }

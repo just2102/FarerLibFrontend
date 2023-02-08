@@ -13,3 +13,90 @@ header {
   background-color: rgb(119, 173, 240);
   padding:1.3rem;
 }
+
+/* LIBRARY */
+.library_addbook {
+  margin-top:1%;
+}
+.add_book_modal {
+  display: grid;
+  justify-items: center;
+  gap:10px;
+}
+.add_book_modal label {
+
+}
+.add_book_modal input {
+
+}
+
+#genres {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap:5px;
+}
+#newGenre {
+  background-color: rgb(249, 246, 243);
+  border-radius: 10px;
+  padding:3px;
+  transition: 150ms;
+}
+#newGenre:hover {
+  cursor: pointer;
+  background-color: aliceblue;
+  transform: scale(1.02);
+}
+/* new author field */
+#new_author {
+  display: grid;
+  justify-items: center;
+}
+#choose_author_button {
+  width:50%;
+}
+
+#filtered_author {
+  border: 1px solid rgb(75, 74, 74);
+  background-color: rgb(243, 248, 254);
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: 200ms;
+}
+#filtered_author:hover {
+  cursor: pointer;
+  background-color: rgb(203, 223, 249);
+}
+.filteredSelectedAuthor {
+  background-color: rgb(203, 223, 249) !important;
+  cursor: pointer;
+}
+
+
+#add_book_button {
+  justify-self: stretch;
+}
+
+.library {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-gap: 10px;
+  margin-top:2%;
+}
+/*  */
+
+
+/* AUTHORS */
+.authors {
+  
+}
+
+.author {
+  display: flex;
+  flex-direction: column;
+  border: 1px black solid;
+}
+
+/*  */

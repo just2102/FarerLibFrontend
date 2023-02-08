@@ -5,6 +5,9 @@ import { AuthorType, BookType } from "../Types/Types"
 
 const instance = axios.create({
     baseURL: "https://farerlib.onrender.com/api/",
+    // headers: {
+    //     'Content-Type': "application/json"
+    // }
     // add later when there is user authentication
     // withCredentials: true
 })
@@ -15,7 +18,7 @@ export const booksAPI = {
         return instance.get(`books`)
     },
     postBook(newBook:BookType) {
-        return instance.post(`books`, {newBook})
+        return instance.post(`books/`, newBook)
     },
     getBookById(bookId:string) {
         return instance.get(`books/${bookId}`)

@@ -5,11 +5,13 @@ import { authorsAPI } from './../../API/api';
 
 interface BookState {
     authors:AuthorType[] | null,
+    finalSelectedAuthor: AuthorType | null
     isFetching: boolean
 }
 
 const initialState: BookState = {
     authors: null,
+    finalSelectedAuthor: null,
     isFetching: false
 }
 
@@ -23,7 +25,6 @@ export const getAllAuthors = createAsyncThunk(
         } dispatch(toggleIsFetching())
     }
 )
-
 export const authorSlice = createSlice({
     name:'book',
     initialState,
@@ -33,11 +34,14 @@ export const authorSlice = createSlice({
         },
         toggleIsFetching:(state)=>{
             state.isFetching=!state.isFetching
+        },
+        setFinalSelectedAuthor:(state,action:PayloadAction<AuthorType>)=>{
+            state.finalSelectedAuthor = action.payload
         }
     }
 })
 
 
-export const {setAuthors, toggleIsFetching} = authorSlice.actions
+export const {setAuthors, toggleIsFetching, setFinalSelectedAuthor} = authorSlice.actions
 
 export default authorSlice.reducer
