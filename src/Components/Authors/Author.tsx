@@ -9,7 +9,10 @@ const Author = ({author}:Props) => {
     return ( 
         <div className="author">
             <div className="author_name">{author.first_name + " " + author.last_name}</div>
-            <div className="author_latestbook">Latest book: '{latestBook.title}' ({latestBook.year})</div>
+            {author.books.length>0 && 
+            <div className="author_latestbook">
+                Latest book: '{latestBook.title}' {latestBook.year && `(${latestBook.year})`}
+            </div>}
             
         </div>
      );

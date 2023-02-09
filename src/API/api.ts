@@ -33,7 +33,7 @@ export const authorsAPI = {
         return instance.get(`authors`)
     },
     postAuthor(newAuthor:AuthorType) {
-        return instance.post(`authors`, {newAuthor})
+        return instance.post(`authors`, newAuthor)
     },
 
     getAuthorById(authorId:string) {

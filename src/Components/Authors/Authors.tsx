@@ -12,13 +12,16 @@ const Authors = () => {
   useEffect(() => {
     dispatch(getAllAuthors())
   },[]);
-  const authorsMapped = authors?.map((author,index)=>{
+  const authorsMapped = authors.length>0 && authors.map((author,index)=>{
     return <Author key={index} author={author}></Author>
   })
-  console.log(authors)
   return <div className="authors_container">
     {isFetching && <Preloader loadingText="Loading authors..."/>}
-    {!isFetching && authorsMapped}
+    {!isFetching && authors.length>0 && authorsMapped}
+    {authors.length===0 && <div>
+      <h2>Look like there are no authors yet, but you can add one yourself!</h2>
+      <button>Add author</button>
+      </div> }
   </div>;
 };
 

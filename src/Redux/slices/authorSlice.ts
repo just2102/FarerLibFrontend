@@ -4,13 +4,13 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { authorsAPI } from './../../API/api';
 
 interface BookState {
-    authors:AuthorType[] | null,
+    authors:AuthorType[] | [],
     finalSelectedAuthor: AuthorType | null
     isFetching: boolean
 }
 
 const initialState: BookState = {
-    authors: null,
+    authors: [],
     finalSelectedAuthor: null,
     isFetching: false
 }
@@ -25,6 +25,15 @@ export const getAllAuthors = createAsyncThunk(
         } dispatch(toggleIsFetching())
     }
 )
+
+export const postAuthorRequest = createAsyncThunk(
+    `authors/postAuthorRequest`,
+    async(author:AuthorType, {dispatch})=>{
+        const response = await authorsAPI.postAuthor(author)
+        console.log(response)
+    }
+)
+
 export const authorSlice = createSlice({
     name:'book',
     initialState,
@@ -37,6 +46,9 @@ export const authorSlice = createSlice({
         },
         setFinalSelectedAuthor:(state,action:PayloadAction<AuthorType>)=>{
             state.finalSelectedAuthor = action.payload
+        },
+        postAuthorSuccess:(state,action:PayloadAction<AuthorType>)=> {
+            state.authors = [...state.authors, action.payload]
         }
     }
 })

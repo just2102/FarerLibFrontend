@@ -5,8 +5,8 @@ export type AuthorType = {
   books: BookType[];
   // optional
   _id?: string;
-  date_of_birth?: number;
-  date_of_death?: number;
+  date_of_birth?: Date;
+  date_of_death?: Date;
 };
 
 export type BookType = {

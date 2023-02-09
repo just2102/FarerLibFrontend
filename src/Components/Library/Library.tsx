@@ -31,7 +31,7 @@ const Library = () => {
 
   useEffect(() => {
     dispatch(getAllBooks());
-  }, []);
+  }, [books.length]);
   const booksMapped = books?.map((book, index) => {
     return <Book key={index} book={book}></Book>;
   });

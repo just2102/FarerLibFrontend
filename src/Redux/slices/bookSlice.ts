@@ -35,6 +35,17 @@ export const postBookRequest = createAsyncThunk(
     }
 )
 
+export const deleteBookRequest = createAsyncThunk(
+    `books/deleteBookRequest`,
+    async(bookId:string, {dispatch})=>{
+        const response = await booksAPI.deleteBookById(bookId)
+        if (response.status===200) {
+            dispatch(deleteBookSuccess(bookId))
+            return true
+        } else return false
+    }
+)
+
 export const bookSlice = createSlice({
     name:'book',
     initialState,
@@ -47,12 +58,17 @@ export const bookSlice = createSlice({
         },
         addBookSuccess:(state,action:PayloadAction<BookType>)=>{
             state.books = [...state.books, action.payload]
+        },
+        deleteBookSuccess:(state,action:PayloadAction<string>)=>{
+            state.books.filter(book=>{
+                book._id!==action.payload
+            })
         }
     }
 })
 
 
-export const {setBooks, toggleIsFetching, addBookSuccess} = bookSlice.actions
+export const {setBooks, toggleIsFetching, addBookSuccess, deleteBookSuccess} = bookSlice.actions
 export default bookSlice.reducer
 
 // export const selectBooks = (state: {book: BookState}) => state.book.books

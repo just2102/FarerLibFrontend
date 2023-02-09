@@ -4,6 +4,32 @@
   padding: 2rem;
   text-align: center;
 }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.button_visible {
+  display: block !important;
+  opacity: 1;
+  animation: fadeIn 450ms;
+}
+.button_invisible {
+  display: none !important;
+  opacity:0;
+  animation: fadeOut 450ms;
+}
 
 
 header {
@@ -54,6 +80,26 @@ header {
 #choose_author_button {
   width:50%;
 }
+/* top authors (displays by default) */
+.top_authors {
+  display: grid;
+}
+#top_author {
+  color:teal;
+}
+/*  */
+/* add new author form */
+.add_new_author_form {
+  display: grid;
+
+}
+.add_new_author_form label {
+
+}
+.add_new_author_form input {
+  
+}
+/*  */
 
 #filtered_author {
   border: 1px solid rgb(75, 74, 74);
@@ -85,7 +131,42 @@ header {
   grid-gap: 10px;
   margin-top:2%;
 }
+.book {
+  border: 0.5px solid grey;
+  border-radius: 8px;
+}
+.book_delete {
+  color:red;
+  display: flex;
+  justify-content: end;
+}
+.book_delete img {
+  width:3rem;
+}
+.book_delete img:hover {
+  cursor: pointer;
+}
+.book_title {
+
+}
+.book_author {
+
+}
+.book_year {
+
+}
+.book_genre {
+
+}
+.book_edit {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+
 /*  */
+
 
 
 /* AUTHORS */

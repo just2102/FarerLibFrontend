@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import Modal from 'react-modal';
+import Modal from "react-modal";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 import { postBookRequest } from "../../../Redux/slices/bookSlice";
 import { AuthorType, BookType } from "../../../Types/Types";
 import ChooseAuthorModal from "./ChooseAuthorModal";
 const customStyles = {
-    overlay: {
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    },
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-    },
-  };
+  overlay: {
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
 type Inputs = {
   title: string;
   // author: string;
@@ -28,38 +28,40 @@ type Inputs = {
 };
 
 interface Props {
-  closeModal: () => void
+  closeModal: () => void;
 }
 
-const AddBookModal = ({closeModal}:Props) => {
-  const finalSelectedAuthor = useAppSelector(state=>state.authors.finalSelectedAuthor)
-  const dispatch = useAppDispatch()
+const AddBookModal = ({ closeModal }: Props) => {
+  const finalSelectedAuthor = useAppSelector(
+    (state) => state.authors.finalSelectedAuthor
+  );
+  const dispatch = useAppDispatch();
 
   // react-hook-form controls
   const { register, handleSubmit } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = async(data) => {
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     // should send finalSelectedAuthor.id instead of selected author name (API demands an ID)
-    const authorId = finalSelectedAuthor?._id
+    const authorId = finalSelectedAuthor?._id;
     // should send selectedGenre (local useState variable)
-    const genre = selectedGenre
+    const genre = selectedGenre;
     // create an object from collected data (and verify)
-    let newBook:BookType;
+    let newBook: BookType;
     if (authorId && genre) {
       newBook = {
-        title:data.title,
-        author: authorId,
-        genre: genre,
-      }
+        title: data.title.trim(),
+        author: authorId.trim(),
+        genre: genre.trim(),
+      };
       if (data.summary) {
-        newBook.summary = data.summary
+        newBook.summary = data.summary.trim();
       }
       if (data.year) {
-        newBook.year = data.year
+        newBook.year = Number(data.year.toString().trim());
       }
-      const response = await dispatch(postBookRequest(newBook))
+      const response = await dispatch(postBookRequest(newBook));
       // if server responds OK, close modal and rerender library
-      if (response.payload===true) {
-        closeModal()
+      if (response.payload === true) {
+        closeModal();
       }
     }
   };
@@ -87,65 +89,92 @@ const AddBookModal = ({closeModal}:Props) => {
     "Young Adult",
     "Classics",
   ]);
-  const mappedGenreOptions = genreOptions.map((genre)=>{
-    return <div key={genre} id="newGenre" onClick={()=>{selectGenreHandler(genre)}}>{genre}</div>
-})
-const [genreOptionsVisible, setGenreOptionsVisible] = useState(false)
+  const mappedGenreOptions = genreOptions.map((genre) => {
+    return (
+      <div
+        key={genre}
+        id="newGenre"
+        onClick={() => {
+          selectGenreHandler(genre);
+        }}
+      >
+        {genre}
+      </div>
+    );
+  });
+  const [genreOptionsVisible, setGenreOptionsVisible] = useState(false);
 
-const [selectedGenre, setSelectedGenre] = useState("")
-// select genre handler
-  const selectGenreHandler = (genre:string) => {
-    setSelectedGenre(genre)
-    setGenreOptionsVisible(false)
-    console.log('selected genre:' + selectedGenre)
-  }
+  const [selectedGenre, setSelectedGenre] = useState("");
+  // select genre handler
+  const selectGenreHandler = (genre: string) => {
+    setSelectedGenre(genre);
+    setGenreOptionsVisible(false);
+    console.log("selected genre:" + selectedGenre);
+  };
 
-//   choose author modal
-  const [authorModalOpen, setAuthorModalOpen] = useState<boolean>(false)
+  //   choose author modal
+  const [authorModalOpen, setAuthorModalOpen] = useState<boolean>(false);
 
-//   rerender if user set author or genre
-    useEffect(()=>{
-    },[finalSelectedAuthor, selectedGenre])
+  //   rerender if user set author or genre
+  useEffect(() => {}, [finalSelectedAuthor, selectedGenre]);
   return (
     <div>
       <form className="add_book_modal" onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="newTitleInput">Title*</label>
-        <input id="newTitleInput" type="text" placeholder="Harry Potter..."  {...register('title')} />
+        <input
+          id="newTitleInput"
+          type="text"
+          placeholder="Harry Potter..."
+          {...register("title")}
+        />
 
         <label htmlFor="newGenreInput">Genre*</label>
-        <input 
-        {...register("genre")}
-        value={selectedGenre}
-        id="newGenreInput" 
-        type="text" 
-        placeholder="Fantasy..." 
-        onFocus={()=>setGenreOptionsVisible(true)}/>
-        {genreOptionsVisible && 
-        <div id="genres">
-            {mappedGenreOptions}
-        </div>}
+        <input
+          {...register("genre")}
+          value={selectedGenre}
+          id="newGenreInput"
+          type="text"
+          placeholder="Fantasy..."
+          onFocus={() => setGenreOptionsVisible(true)}
+        />
+        {genreOptionsVisible && <div id="genres">{mappedGenreOptions}</div>}
         <div id="new_author">
-            <label htmlFor="newAuthorInput">Author*</label>
-            <input 
-            id="newAuthorInput" 
-            type="text" 
-            placeholder="J. K. Rowling..." 
+          <label htmlFor="newAuthorInput">Author*</label>
+          <input
+            id="newAuthorInput"
+            type="text"
+            placeholder="J. K. Rowling..."
             // there's no point in registering this field
-            // since it's only used to display the finalSelectedAuthor's name, 
-            // and the API requests and ID
-            // {...register('author')} 
-            value={finalSelectedAuthor ? `${finalSelectedAuthor.first_name} ${finalSelectedAuthor.last_name}` : '' }/>
-            <button id="choose_author_button" onClick={(e)=>{ e.preventDefault(); setAuthorModalOpen(true)}}>Choose</button>
-            <Modal 
+            // since it's only used to display the finalSelectedAuthor's name,
+            // and the API requests and ID which is taken from the redux store
+            // {...register('author')}
+            value={
+              finalSelectedAuthor
+                ? `${finalSelectedAuthor.first_name} ${finalSelectedAuthor.last_name}`
+                : ""
+            }
+          />
+          <button
+            id="choose_author_button"
+            onClick={(e) => {
+              e.preventDefault();
+              setAuthorModalOpen(true);
+            }}
+          >
+            Choose
+          </button>
+          <Modal
             style={customStyles}
             isOpen={authorModalOpen}
-            onRequestClose={()=>setAuthorModalOpen(false)}>
-                <ChooseAuthorModal
-                setAuthorModalOpen={setAuthorModalOpen}
-                finalSelectedAuthor={finalSelectedAuthor}></ChooseAuthorModal>
-            </Modal>
+            onRequestClose={() => setAuthorModalOpen(false)}
+          >
+            <ChooseAuthorModal
+              setAuthorModalOpen={setAuthorModalOpen}
+              finalSelectedAuthor={finalSelectedAuthor}
+            ></ChooseAuthorModal>
+          </Modal>
         </div>
-        
+
         <div id="new_summary">
           <label htmlFor="newSummaryInput">Summary</label>
           <textarea {...register("summary")} id="newSummaryInput"></textarea>
@@ -153,7 +182,12 @@ const [selectedGenre, setSelectedGenre] = useState("")
 
         <div id="new_year">
           <label htmlFor="newYearInput">Release year</label>
-          <input  {...register('year')} id="newYearInput" type="number" placeholder="1994..." />
+          <input
+            {...register("year")}
+            id="newYearInput"
+            type="number"
+            placeholder="1994..."
+          />
         </div>
         <button id="add_book_button">Add</button>
       </form>
