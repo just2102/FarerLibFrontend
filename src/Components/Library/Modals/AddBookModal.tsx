@@ -20,7 +20,7 @@ const customStyles = {
 };
 type Inputs = {
   title: string;
-  // author: string;
+  author: string;
   genre: string;
 
   year?: number;
@@ -38,7 +38,7 @@ const AddBookModal = ({ closeModal }: Props) => {
   const dispatch = useAppDispatch();
 
   // react-hook-form controls
-  const { register, handleSubmit } = useForm<Inputs>();
+  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     // should send finalSelectedAuthor.id instead of selected author name (API demands an ID)
     const authorId = finalSelectedAuthor?._id;
@@ -109,7 +109,6 @@ const AddBookModal = ({ closeModal }: Props) => {
   const selectGenreHandler = (genre: string) => {
     setSelectedGenre(genre);
     setGenreOptionsVisible(false);
-    console.log("selected genre:" + selectedGenre);
   };
 
   //   choose author modal
@@ -117,19 +116,22 @@ const AddBookModal = ({ closeModal }: Props) => {
 
   //   rerender if user set author or genre
   useEffect(() => {}, [finalSelectedAuthor, selectedGenre]);
-  return (
+  return ( 
     <div>
       <form className="add_book_modal" onSubmit={handleSubmit(onSubmit)}>
+        <h2>Add a new book</h2>
         <label htmlFor="newTitleInput">Title*</label>
         <input
           id="newTitleInput"
           type="text"
           placeholder="Harry Potter..."
-          {...register("title")}
+          {...register("title", {required:true, maxLength:50})}
         />
+        {errors.title && <span>Books have titles!</span> }
 
         <label htmlFor="newGenreInput">Genre*</label>
         <input
+          required
           {...register("genre")}
           value={selectedGenre}
           id="newGenreInput"
@@ -141,6 +143,7 @@ const AddBookModal = ({ closeModal }: Props) => {
         <div id="new_author">
           <label htmlFor="newAuthorInput">Author*</label>
           <input
+            required
             id="newAuthorInput"
             type="text"
             placeholder="J. K. Rowling..."

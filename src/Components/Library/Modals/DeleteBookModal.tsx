@@ -4,11 +4,12 @@ import { BookType } from "../../../Types/Types";
 
 interface Props {
     book: BookType
+    authorName: string | undefined
     closeDeleteModal: () => void
 }
 
 
-const DeleteBookModal = ({book, closeDeleteModal}:Props) => {
+const DeleteBookModal = ({book, authorName, closeDeleteModal}:Props) => {
     const dispatch = useAppDispatch()
     const onDeleteButtonClick = async() => {
         if (book._id) {
@@ -22,7 +23,7 @@ const DeleteBookModal = ({book, closeDeleteModal}:Props) => {
 
     return ( 
         <div className="delete_book_modal">
-            <div>{`Are you sure you wish to delete ${book.title} by ${book.author}?`}</div>
+            <div>{`Are you sure you wish to delete ${book.title} by ${authorName}?`}</div>
             <button onClick={onDeleteButtonClick}>Yes</button>
             <button onClick={closeDeleteModal}>No</button>
         </div>

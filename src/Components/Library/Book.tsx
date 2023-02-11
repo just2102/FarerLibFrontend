@@ -3,6 +3,7 @@ import deleteIcon from "../../assets/delete_icon.svg"
 import Modal from 'react-modal';
 import { useEffect, useState } from "react";
 import DeleteBookModal from "./Modals/DeleteBookModal";
+import EditBookModal from "./Modals/EditBookModal";
 
 interface Props {
     book: BookType
@@ -22,8 +23,10 @@ const customStyles = {
 const Book = ({book}:Props) => {
     let author = book.author
     let authorName;
+    let authorId;
     if (typeof author==='object') {
         authorName = `${author.first_name} ${author.last_name}`
+        authorId = author._id
     }
     const [bookEditButtonVisible, setBookEditButtonVisible] = useState(false)
     const [bookDeleteButtonVisible, setBookDeleteButtonVisible] = useState(false)
@@ -40,7 +43,9 @@ const Book = ({book}:Props) => {
 
 // edit book modal
     const [editBookModalOpen, setEditBookModalOpen] = useState(false)
-
+    const closeEditModal = () => {
+        setEditBookModalOpen(false)
+    }
 
     return ( 
         <div className="book" onMouseEnter={bookHoverHandler} onMouseLeave={bookHoverHandler}>
@@ -51,7 +56,7 @@ const Book = ({book}:Props) => {
                 style={customStyles}
                 onRequestClose={()=>setDeleteBookModalOpen(false)}
 
-                ><DeleteBookModal book={book} closeDeleteModal={closeDeleteModal}></DeleteBookModal></Modal>
+                ><DeleteBookModal book={book} authorName={authorName} closeDeleteModal={closeDeleteModal}></DeleteBookModal></Modal>
             </div>
 
             <div className="book_title">{`Title: ${book.title}`}</div>
@@ -65,7 +70,18 @@ const Book = ({book}:Props) => {
             </div>
             
             <div className="book_edit">
-                <button id="book_edit_button" onClick={()=>setEditBookModalOpen(true)} className={bookEditButtonVisible ? "button_visible" : "button_invisible"}>Edit</button>
+                <button 
+                id="book_edit_button" 
+                onClick={()=>setEditBookModalOpen(true)} 
+                className={bookEditButtonVisible ? "button_visible" : "button_invisible"}>
+                Edit
+                </button>
+                <Modal 
+                isOpen={editBookModalOpen}
+                style={customStyles}
+                onRequestClose={()=>setEditBookModalOpen(false)}
+
+                ><EditBookModal authorName={authorName} authorId={authorId} book={book} closeEditModal={closeEditModal}></EditBookModal></Modal>
             </div>
         </div>
      );
