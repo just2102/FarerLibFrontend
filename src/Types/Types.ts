@@ -12,10 +12,18 @@ export type AuthorType = {
 export type BookType = {
   // necessary
   title: string;
-  author: AuthorType | string;
+  author: AuthorType | string
   genre: string;
+  available: boolean
   // optional
   _id?: string;
   year?: number;
   summary?: string;
+  cover?: any
 };
+
+export type UserType = {
+  username: string,
+  role: string,
+  id: string
+}

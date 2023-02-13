@@ -20,12 +20,15 @@
     opacity: 0;
   }
 }
-.button_visible {
-  display: block !important;
+.actions_visible {
+  display: flex !important;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
   opacity: 1;
   animation: fadeIn 450ms;
 }
-.button_invisible {
+.actions_invisible {
   display: none !important;
   opacity:0;
   animation: fadeOut 450ms;
@@ -38,6 +41,18 @@ header {
   align-items: center;
   background-color: rgb(119, 173, 240);
   padding:1.3rem;
+}
+.login_section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.login_section span {
+  color:rgb(191, 240, 240)
+}
+.login_section a {
+  cursor: pointer;
 }
 
 /* LIBRARY */
@@ -135,16 +150,29 @@ header {
   border: 0.5px solid grey;
   border-radius: 8px;
 }
-.book_delete {
-  color:red;
+#book_actions {
   display: flex;
   justify-content: end;
 }
+#book_actions img {
+  width:2.8rem;
+  transition: 200ms;
+}
+#book_actions img:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+.book_borrow {
+
+}
+.book_delete {
+
+}
 .book_delete img {
-  width:3rem;
+
 }
 .book_delete img:hover {
-  cursor: pointer;
+
 }
 .book_title {
 
@@ -181,3 +209,55 @@ header {
 }
 
 /*  */
+
+/* LOGIN/REGISTER */
+
+.login_container {
+  border: 2px solid azure;
+  margin-top:5%;
+  display: grid;
+  justify-items: center;
+  gap:15px;
+}
+.login_label {
+  font-style: italic;
+}
+.login_input {
+  font-size: medium;
+  font-weight: bold;
+  padding:3px;
+  background-color: rgb(169, 224, 250);
+  border-radius: 5px;
+  box-shadow: 2px 2px rgb(69, 238, 224);
+}
+.login_input_error {
+  color:rgb(242, 126, 126);
+  font-size: smaller;
+  font-style: italic;
+}
+.login_submit {
+  padding:5px;
+  border-radius: 6px;
+  background-color: rgb(194, 218, 241);
+  color:rgb(67, 66, 66);
+  transition: 200ms;
+  border-color: rgb(124, 245, 226);
+  box-shadow: 1px 1px rgb(23, 119, 146);
+  font-weight: bold;
+  font-style: italic;
+  font-size: 1rem;
+}
+.login_submit:hover {
+  background-color: rgb(164, 210, 253);
+  color:rgb(9, 9, 9);
+  cursor: pointer;
+  transform: scale(1.1);
+  font-weight: bolder;
+}
+
+.login_container span {
+  color:rgb(54, 171, 244);
+}
+.login_container span:hover {
+  cursor: pointer;
+}

@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
-import { getAllAuthors } from "../../../Redux/slices/authorSlice";
-import { AuthorType } from "../../../Types/Types";
+import { useAppDispatch, useAppSelector } from "../../../../Redux/hooks";
+import { getAllAuthors } from "../../../../Redux/slices/authorSlice";
+import { AuthorType } from "../../../../Types/Types";
 import AddAuthorForm from "./AddAuthorForm";
 import FilteredAuthor from "./FilteredAuthor";
 import TopAuthor from "./TopAuthor";
@@ -45,11 +45,10 @@ const ChooseAuthorModal = ({setAuthorModalOpen, finalSelectedAuthor}:Props) => {
         <>
         <div className="choose_author_modal_content">
             {/* if there are no top authors, display a form to add an author */}
-            {authors.length===0 && <AddAuthorForm />}
+            {authors.length===0 && <AddAuthorForm  />}
 
 
             {/* if there are authors, allow the user to search among them and display the filtered ones */}
-            
             {authors.length>0 && <>
             {/* display top authors so that user can choose from them without searching */}
             <div className="top_authors">
@@ -59,7 +58,8 @@ const ChooseAuthorModal = ({setAuthorModalOpen, finalSelectedAuthor}:Props) => {
             value={searchValue} 
             type="text" 
             id="search_author_field" 
-            onChange={(e)=>{handleSearch(e)}} />
+            onChange={(e)=>{handleSearch(e)}}
+            placeholder="Search..." />
 
             {filteredAuthorsMapped}
 

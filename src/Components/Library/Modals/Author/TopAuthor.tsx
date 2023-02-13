@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
-import { setFinalSelectedAuthor } from "../../../Redux/slices/authorSlice";
-import { AuthorType } from "../../../Types/Types";
+import { useAppDispatch, useAppSelector } from "../../../../Redux/hooks";
+import { setFinalSelectedAuthor } from "../../../../Redux/slices/authorSlice";
+import { AuthorType } from "../../../../Types/Types";
 
 interface Props {
     author: AuthorType

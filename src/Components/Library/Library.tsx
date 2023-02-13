@@ -4,7 +4,7 @@ import { getAllBooks } from "../../Redux/slices/bookSlice";
 import Preloader from "../Common/Preloader";
 import Book from "./Book";
 import Modal from 'react-modal';
-import AddBookModal from "./Modals/AddBookModal";
+import AddBookModal from "./Modals/Book/AddBookModal";
 
 const customStyles = {
   overlay: {

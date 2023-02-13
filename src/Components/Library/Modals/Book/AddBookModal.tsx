@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Modal from "react-modal";
-import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
-import { postBookRequest } from "../../../Redux/slices/bookSlice";
-import { AuthorType, BookType } from "../../../Types/Types";
-import ChooseAuthorModal from "./ChooseAuthorModal";
+import { useAppDispatch, useAppSelector } from "../../../../Redux/hooks";
+import { postBookRequest } from "../../../../Redux/slices/bookSlice";
+import { AuthorType, BookType } from "../../../../Types/Types";
+import ChooseAuthorModal from "../Author/ChooseAuthorModal";
 const customStyles = {
   overlay: {
     backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -22,9 +22,11 @@ type Inputs = {
   title: string;
   author: string;
   genre: string;
+  available: boolean
 
   year?: number;
   summary?: string;
+  cover?: any
 };
 
 interface Props {
@@ -36,6 +38,8 @@ const AddBookModal = ({ closeModal }: Props) => {
     (state) => state.authors.finalSelectedAuthor
   );
   const dispatch = useAppDispatch();
+
+  // handle cover image 
 
   // react-hook-form controls
   const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
@@ -51,12 +55,16 @@ const AddBookModal = ({ closeModal }: Props) => {
         title: data.title.trim(),
         author: authorId.trim(),
         genre: genre.trim(),
+        available: data.available,
       };
       if (data.summary) {
         newBook.summary = data.summary.trim();
       }
       if (data.year) {
         newBook.year = Number(data.year.toString().trim());
+      }
+      if (data.cover) {
+        newBook.cover = data.cover[0]
       }
       const response = await dispatch(postBookRequest(newBook));
       // if server responds OK, close modal and rerender library
@@ -122,6 +130,7 @@ const AddBookModal = ({ closeModal }: Props) => {
         <h2>Add a new book</h2>
         <label htmlFor="newTitleInput">Title*</label>
         <input
+          required
           id="newTitleInput"
           type="text"
           placeholder="Harry Potter..."
@@ -192,6 +201,21 @@ const AddBookModal = ({ closeModal }: Props) => {
             placeholder="1994..."
           />
         </div>
+        
+        <div id="new_available">
+          <label htmlFor="newAvailable">Available?</label>
+          <input 
+          {...register("available")} 
+          id="newAvailable" 
+          type="checkbox" 
+          defaultChecked />
+        </div>
+
+        <div id="new_cover">
+          <label htmlFor="newCover">Cover image</label>
+          <input type="file" {...register("cover")}/>
+        </div>
+
         <button id="add_book_button">Add</button>
       </form>
     </div>

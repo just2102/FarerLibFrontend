@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
-import { updateBookRequest } from "../../../Redux/slices/bookSlice";
-import { BookType } from "../../../Types/Types";
-import ChooseAuthorModal from "./ChooseAuthorModal";
+import { useAppDispatch, useAppSelector } from "../../../../Redux/hooks";
+import { updateBookRequest } from "../../../../Redux/slices/bookSlice";
+import { BookType } from "../../../../Types/Types";
+import ChooseAuthorModal from "../Author/ChooseAuthorModal";
 import Modal from "react-modal";
-import { getAuthorById } from "../../../Redux/slices/authorSlice";
-import Preloader from "../../Common/Preloader";
+import { getAuthorById } from "../../../../Redux/slices/authorSlice";
+import Preloader from "../../../Common/Preloader";
 
 const customStyles = {
     overlay: {
@@ -33,6 +33,7 @@ type Inputs = {
     title: string;
     author: string;
     genre: string;
+    available: boolean;
   
     year?: number;
     summary?: string;
@@ -61,6 +62,7 @@ const EditBookModal = ({book, authorId, authorName, closeEditModal}:Props) => {
             title: data.title.trim(),
             author: authorId.trim(),
             genre: genre.trim(),
+            available: data.available
           };
           if (data.summary) {
             updatedBook.summary = data.summary.trim();
@@ -68,7 +70,6 @@ const EditBookModal = ({book, authorId, authorName, closeEditModal}:Props) => {
           if (data.year) {
             updatedBook.year = Number(data.year.toString().trim());
           }
-          console.log(updatedBook)
           const response = await dispatch(updateBookRequest(updatedBook));
           // if server responds OK, close modal and rerender library
           if (response.payload === true) {
@@ -115,7 +116,7 @@ const EditBookModal = ({book, authorId, authorName, closeEditModal}:Props) => {
       });
       const [genreOptionsVisible, setGenreOptionsVisible] = useState(false);
     
-      const [selectedGenre, setSelectedGenre] = useState("");
+      const [selectedGenre, setSelectedGenre] = useState(book.genre ? book.genre : "");
       // select genre handler
       const selectGenreHandler = (genre: string) => {
         setSelectedGenre(genre);
@@ -153,6 +154,7 @@ const EditBookModal = ({book, authorId, authorName, closeEditModal}:Props) => {
           required
           {...register("genre")}
           value={selectedGenre ? selectedGenre : book.genre}
+          readOnly
           id="newGenreInput"
           type="text"
           placeholder={'Fantasy...'}
@@ -218,6 +220,16 @@ const EditBookModal = ({book, authorId, authorName, closeEditModal}:Props) => {
             placeholder="1994..."
           />
         </div>
+
+        <div id="new_available">
+          <label htmlFor="newAvailable">Available?</label>
+          <input 
+          {...register("available")} 
+          id="newAvailable" 
+          type="checkbox"
+          defaultChecked={book.available} />
+        </div>
+
         <button id="add_book_button">Update</button>
       </form>
         

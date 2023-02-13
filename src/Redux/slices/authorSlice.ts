@@ -44,7 +44,10 @@ export const postAuthorRequest = createAsyncThunk(
     `authors/postAuthorRequest`,
     async(author:AuthorType, {dispatch})=>{
         const response = await authorsAPI.postAuthor(author)
-        console.log(response)
+        if (response.status===200) {
+            dispatch(postAuthorSuccess(response.data))
+            return true
+        } else return false
     }
 )
 
@@ -68,6 +71,6 @@ export const authorSlice = createSlice({
 })
 
 
-export const {setAuthors, toggleIsFetching, setFinalSelectedAuthor} = authorSlice.actions
+export const {setAuthors, toggleIsFetching, setFinalSelectedAuthor, postAuthorSuccess} = authorSlice.actions
 
 export default authorSlice.reducer

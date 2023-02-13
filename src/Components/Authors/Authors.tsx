@@ -18,7 +18,7 @@ const Authors = () => {
   return <div className="authors_container">
     {isFetching && <Preloader loadingText="Loading authors..."/>}
     {!isFetching && authors.length>0 && authorsMapped}
-    {authors.length===0 && <div>
+    {(authors.length===0 && !isFetching ) && <div>
       <h2>Look like there are no authors yet, but you can add one yourself!</h2>
       <button>Add author</button>
       </div> }

@@ -1,6 +1,6 @@
-import { useAppDispatch } from "../../../Redux/hooks";
-import { deleteBookRequest } from "../../../Redux/slices/bookSlice";
-import { BookType } from "../../../Types/Types";
+import { useAppDispatch } from "../../../../Redux/hooks";
+import { deleteBookRequest } from "../../../../Redux/slices/bookSlice";
+import { BookType } from "../../../../Types/Types";
 
 interface Props {
     book: BookType
