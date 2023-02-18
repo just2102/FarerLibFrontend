@@ -6,12 +6,14 @@ interface authState {
   currentUser: UserType | null;
   isAuthorized: boolean;
   isLogging: boolean;
+  loginError: null | string
 }
 
 const initialState: authState = {
   currentUser: null,
   isAuthorized: false,
   isLogging: false,
+  loginError: null
 };
 
 export const whoAmI = createAsyncThunk(
@@ -30,11 +32,15 @@ export const loginRequest = createAsyncThunk(
   async ({ username, password }: any, { dispatch }) => {
     dispatch(toggleIsLogging())
     const response = await authAPI.login(username, password);
-    if (response.status === 200) {
+    if (response.data.status === "OK") {
       // remember token, then dispatch whoAmI() to get full user object and save it to the store
+      // and clear login error
       localStorage.setItem("token", response.data.token);
+      dispatch(setLoginError(null))
       dispatch(whoAmI())
-    } 
+    } else if (response.data.status==="ERR") {
+      dispatch(setLoginError(response.data.message))
+    }
     dispatch(toggleIsLogging())
   }
 );
@@ -52,11 +58,16 @@ export const logoutRequest = createAsyncThunk(
 export const registerRequest = createAsyncThunk(
   "auth/registerRequest",
   async ({ username, password }: any, { dispatch }) => {
+    dispatch(toggleIsLogging())
     const response = await authAPI.register(username, password);
-    debugger
-    if (response.status === 200) {
-      // should get full user object from server and dispatch it so that the current user is saved in the store
-      dispatch(registerSuccess())
+    if (response.data.status==="OK") {
+      dispatch(setLoginError(null))
+      dispatch(toggleIsLogging())
+      return true
+    } else if (response.data.status==="ERR") {
+      dispatch(setLoginError(response.data.message))
+      dispatch(toggleIsLogging())
+      return false
     }
   }
 );
@@ -69,7 +80,7 @@ export const authSlice = createSlice({
       state.isLogging = !state.isLogging
     },
     registerSuccess: (state) => {
-      alert("registered successfully");
+      // 
     },
     setCurrentUser: (state,action:PayloadAction<UserType>) =>{
       state.isAuthorized = true
@@ -78,10 +89,13 @@ export const authSlice = createSlice({
     logoutSuccess: (state) => {
       state.isAuthorized = false,
       state.currentUser = null
+    },
+    setLoginError: (state,action:PayloadAction<string|null>) => {
+      state.loginError = action.payload
     }
   },
 });
 
-export const { toggleIsLogging, registerSuccess, setCurrentUser, logoutSuccess } = authSlice.actions;
+export const { toggleIsLogging, registerSuccess, setCurrentUser, logoutSuccess, setLoginError } = authSlice.actions;
 
 export default authSlice.reducer;

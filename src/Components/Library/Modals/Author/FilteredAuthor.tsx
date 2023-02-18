@@ -6,21 +6,24 @@ import { AuthorType } from "../../../../Types/Types";
 interface Props {
     filteredAuthor: AuthorType
     finalSelectedAuthor: AuthorType | null
+    setAuthorModalOpen: any
 }
 
-const FilteredAuthor = ({filteredAuthor, finalSelectedAuthor}:Props) => {
-  let [isSelected, setIsSelected] = useState(false)
+const FilteredAuthor = ({filteredAuthor, finalSelectedAuthor, setAuthorModalOpen}:Props) => {
+  let [selectedId, setSelectedId] = useState<string|undefined>("")
+  let isSelected = filteredAuthor._id === finalSelectedAuthor?._id
 
   const dispatch = useAppDispatch()
   const onAuthorClick = (author:AuthorType) => {
     dispatch(setFinalSelectedAuthor(author))
+    // setAuthorModalOpen(false)
   }
   useEffect(()=>{
-    if (finalSelectedAuthor) {
-      if (filteredAuthor._id===finalSelectedAuthor._id) {
-        setIsSelected(true)
-      }
-    }
+    // if (finalSelectedAuthor) {
+    //   if (filteredAuthor._id===finalSelectedAuthor._id) {
+    //     setSelectedId(filteredAuthor._id)
+    //   }
+    // }
   },[finalSelectedAuthor])
 
   return (

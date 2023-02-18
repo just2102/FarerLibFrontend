@@ -36,9 +36,8 @@ const AddAuthorForm = () => {
                 
             }
         }
-        
-
     }
+    
     return ( 
         <form onSubmit={handleSubmit(onSubmit)} className="add_new_author_form">
                 <h4>Looks like there are no authors yet, but you can add one yourself!</h4>

@@ -8,17 +8,20 @@ import Register from "./Register";
 const LoginContainer = () => {
     const isAuthorized = useAppSelector(state=>state.auth.isAuthorized)
     const isLogging = useAppSelector(state=>state.auth.isLogging)
+    const loginError = useAppSelector(state=>state.auth.loginError)
     const [loginVisible, setLoginVisible] = useState(true)
     const [registerVisible, setRegisterVisible] = useState(false)
 
-    return (
 
+    return (
         <>
         {isAuthorized && <Navigate to={"/library"}/> }
         {isLogging && <Preloader loadingText="Logging in..."/> }
-        {loginVisible && <Login setRegisterVisible={setRegisterVisible} setLoginVisible={setLoginVisible} />}
-        {registerVisible && <Register setRegisterVisible={setRegisterVisible} setLoginVisible={setLoginVisible}/> } 
+        {loginVisible && <Login setRegisterVisible={setRegisterVisible} setLoginVisible={setLoginVisible} 
+        isLogging={isLogging} loginError={loginError} />}
         
+        {registerVisible && <Register setRegisterVisible={setRegisterVisible} setLoginVisible={setLoginVisible} 
+        isLogging={isLogging} loginError={loginError}/> } 
         </>);
 }
  

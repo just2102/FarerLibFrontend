@@ -30,7 +30,9 @@ const Library = () => {
   const closeModal = () => setModalOpen(false)
 
   useEffect(() => {
-    dispatch(getAllBooks());
+    if (books.length===0) {
+      dispatch(getAllBooks());
+    }
   }, [books.length]);
   const booksMapped = books?.map((book, index) => {
     return <Book key={index} book={book}></Book>;

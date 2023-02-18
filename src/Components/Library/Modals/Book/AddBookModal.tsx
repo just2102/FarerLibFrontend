@@ -158,7 +158,7 @@ const AddBookModal = ({ closeModal }: Props) => {
             placeholder="J. K. Rowling..."
             // there's no point in registering this field
             // since it's only used to display the finalSelectedAuthor's name,
-            // and the API requests and ID which is taken from the redux store
+            // and the API requests an ID which we get from the redux store
             // {...register('author')}
             value={
               finalSelectedAuthor

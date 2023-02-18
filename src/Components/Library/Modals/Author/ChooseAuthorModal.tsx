@@ -16,11 +16,14 @@ const ChooseAuthorModal = ({setAuthorModalOpen, finalSelectedAuthor}:Props) => {
     const dispatch = useAppDispatch()
     const authors = useAppSelector(state=>state.authors.authors)
     useEffect(()=>{
-        dispatch(getAllAuthors())
-    },[])
+        if (authors.length===0) {
+            dispatch(getAllAuthors())
+        }
+    },[finalSelectedAuthor?._id])
     // displays all authors now, but some mechanism to filter by, e.g. likes, should be implemented in the future
     const topAuthorsMapped = authors?.map(author=>{
         return <TopAuthor 
+        setAuthorModalOpen={setAuthorModalOpen}
         author={author} 
         finalSelectedAuthor={finalSelectedAuthor} />
     })
@@ -28,7 +31,8 @@ const ChooseAuthorModal = ({setAuthorModalOpen, finalSelectedAuthor}:Props) => {
     const [searchValue, setSearchValue] = useState("")
     const [filteredAuthors, setFilteredAuthors] = useState<AuthorType[] | null | undefined>(null)
     const filteredAuthorsMapped = filteredAuthors?.map(filteredAuthor=>{
-        return <FilteredAuthor  
+        return <FilteredAuthor
+        setAuthorModalOpen={setAuthorModalOpen}
         filteredAuthor={filteredAuthor}
         finalSelectedAuthor={finalSelectedAuthor}/>
     })
@@ -46,7 +50,6 @@ const ChooseAuthorModal = ({setAuthorModalOpen, finalSelectedAuthor}:Props) => {
         <div className="choose_author_modal_content">
             {/* if there are no top authors, display a form to add an author */}
             {authors.length===0 && <AddAuthorForm  />}
-
 
             {/* if there are authors, allow the user to search among them and display the filtered ones */}
             {authors.length>0 && <>

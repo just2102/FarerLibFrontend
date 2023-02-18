@@ -1,3 +1,5 @@
+import { getAllAuthors } from './authorSlice';
+import { getAllBooks } from './bookSlice';
 import { whoAmI } from './authSlice';
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -11,10 +13,11 @@ const initialState: appState = {
 export const requestInit = createAsyncThunk(
     'app/init',
     async(_,{dispatch})=>{
-       const response = await dispatch(whoAmI())
-       if (response) {
-        dispatch(initSuccess())
-       }
+       const response1 = await dispatch(whoAmI())
+       const response2 = await dispatch(getAllBooks())
+       const response3 = await dispatch(getAllAuthors())
+       await Promise.all([response1,response2,response3])
+       dispatch(initSuccess())
     }
 )
 

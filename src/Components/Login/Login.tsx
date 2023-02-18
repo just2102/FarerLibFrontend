@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useAppDispatch } from "../../Redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
 import { loginRequest } from "../../Redux/slices/authSlice";
 
 type Inputs = {
@@ -10,9 +10,12 @@ type Inputs = {
 interface Props {
     setRegisterVisible: Dispatch<SetStateAction<boolean>>
     setLoginVisible: Dispatch<SetStateAction<boolean>>
+
+    isLogging: boolean
+    loginError: string | null
 }
 
-const Login = ({setRegisterVisible, setLoginVisible}:Props) => {
+const Login = ({setRegisterVisible, setLoginVisible, isLogging, loginError}:Props) => {
     const dispatch = useAppDispatch()
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
     const onSubmit: SubmitHandler<Inputs> = data => {
@@ -30,7 +33,8 @@ const Login = ({setRegisterVisible, setLoginVisible}:Props) => {
                 <input className="login_input" id="password" {...register("password", {minLength: {value:4, message:'Password cannot be shorter than 4 symbols!'}, maxLength: {value:15, message: "Max password length (15) reached"}, required: {value:true,message:"Password cannot be blank"}} )} type="password" />
                 {errors.password && <div className="login_input_error">{errors.password.message}</div> }
 
-                <input className="login_submit" type="submit" value={'Login'} />
+                {loginError && <div>{loginError}</div> }
+                <input disabled={isLogging} className={`login_submit ${isLogging && 'button_disabled'}`} type="submit" value={'Login'} />
 
                 <div>Not registered?</div>
                 <div><span onClick={()=>{

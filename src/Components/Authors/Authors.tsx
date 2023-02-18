@@ -10,8 +10,10 @@ const Authors = () => {
   const isFetching = useAppSelector((state) => state.authors.isFetching);
 
   useEffect(() => {
-    dispatch(getAllAuthors())
-  },[]);
+    if (authors.length===0) {
+      dispatch(getAllAuthors())
+    }
+  },[authors.length]);
   const authorsMapped = authors.length>0 && authors.map((author,index)=>{
     return <Author key={index} author={author}></Author>
   })
