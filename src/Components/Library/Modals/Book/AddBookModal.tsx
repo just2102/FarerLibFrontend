@@ -27,6 +27,7 @@ type Inputs = {
   year?: number;
   summary?: string;
   cover?: any
+  generateRadioGroup?: string
 };
 
 interface Props {
@@ -38,9 +39,6 @@ const AddBookModal = ({ closeModal }: Props) => {
     (state) => state.authors.finalSelectedAuthor
   );
   const dispatch = useAppDispatch();
-
-  // handle cover image 
-
   // react-hook-form controls
   const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
@@ -48,6 +46,8 @@ const AddBookModal = ({ closeModal }: Props) => {
     const authorId = finalSelectedAuthor?._id;
     // should send selectedGenre (local useState variable)
     const genre = selectedGenre;
+    // get selected cover option
+    const coverSelection: "generate" | "upload" | undefined = getCoverSelection()
     // create an object from collected data (and verify)
     let newBook: BookType;
     if (authorId && genre) {
@@ -63,8 +63,15 @@ const AddBookModal = ({ closeModal }: Props) => {
       if (data.year) {
         newBook.year = Number(data.year.toString().trim());
       }
-      if (data.cover) {
-        newBook.cover = data.cover[0]
+      // if user uploaded a cover, save it as base64
+      if (coverSelection==="upload" && data.cover) {
+        const reader = new FileReader();
+        reader.readAsDataURL(data.cover[0]);
+        newBook.cover = await new Promise((resolve)=>{
+          reader.onload = () => {
+            resolve(reader.result as string)
+          }
+        })
       }
       const response = await dispatch(postBookRequest(newBook));
       // if server responds OK, close modal and rerender library
@@ -122,6 +129,24 @@ const AddBookModal = ({ closeModal }: Props) => {
   //   choose author modal
   const [authorModalOpen, setAuthorModalOpen] = useState<boolean>(false);
 
+  // book cover options
+  const [generateCoverDisplay, setGenerateCoverDisplay] = useState(false)
+  const [uploadCoverDisplay, setUploadCoverDisplay] = useState(false)
+  const chooseGenerateCoverOption = () => {
+    setGenerateCoverDisplay(true)
+    setUploadCoverDisplay(false)
+  }
+  const chooseUploadCoverOption = () => {
+    setUploadCoverDisplay(true)
+    setGenerateCoverDisplay(false)
+  }
+  const getCoverSelection = () => {
+    if (generateCoverDisplay) {
+      return 'generate'
+    } else if (uploadCoverDisplay) {
+      return 'upload'
+    }
+  }
   //   rerender if user set author or genre
   useEffect(() => {}, [finalSelectedAuthor, selectedGenre]);
   return ( 
@@ -189,7 +214,8 @@ const AddBookModal = ({ closeModal }: Props) => {
 
         <div id="new_summary">
           <label htmlFor="newSummaryInput">Summary</label>
-          <textarea {...register("summary")} id="newSummaryInput"></textarea>
+          <textarea {...register("summary", {required:generateCoverDisplay})} id="newSummaryInput" placeholder={"This book is about..."}></textarea>
+          {(errors.summary && generateCoverDisplay ) && <span>Please provide a meaningful summary if you wish to generate a book cover</span> }
         </div>
 
         <div id="new_year">
@@ -211,11 +237,31 @@ const AddBookModal = ({ closeModal }: Props) => {
           defaultChecked />
         </div>
 
-        <div id="new_cover">
-          <label htmlFor="newCover">Cover image</label>
-          <input type="file" {...register("cover")}/>
-        </div>
+        <fieldset id="new_cover">
+            <legend>Upload or generate book cover?</legend>
 
+          <input 
+          {...register("generateRadioGroup")} 
+          onClick={chooseGenerateCoverOption}
+          type="radio" 
+          id="cover_generate" 
+          name="cover_option" 
+          />
+          <label htmlFor="cover_generate">Generate (summary required)</label>
+
+          <input 
+          {...register("generateRadioGroup")} 
+          onClick={chooseUploadCoverOption}
+          type="radio" 
+          id="cover_upload" 
+          name="cover_option"  
+          />
+          <label htmlFor="cover_upload">Upload</label>
+          
+          {uploadCoverDisplay && <>
+          <input type="file" {...register("cover")} />
+          </>}
+        </fieldset>
         <button id="add_book_button">Add</button>
       </form>
     </div>

@@ -4,6 +4,13 @@
   padding: 2rem;
   text-align: center;
 }
+button {
+  background-color: rgb(157, 128, 102) !important;
+  color: whitesmoke !important;
+}
+button:hover {
+  border-color: aliceblue !important;
+}
 .button_disabled {
   opacity: 0.5 !important;
 }
@@ -76,6 +83,11 @@ header {
 .add_book_modal input {
 
 }
+.add_book_modal span {
+  color:red;
+  font-size: small;
+  font-style: italic;
+}
 
 #genres {
   display: grid;
@@ -100,6 +112,31 @@ header {
 }
 #choose_author_button {
   width:50%;
+}
+/* new summary field */
+#new_summary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/* new year field */
+#new_year {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/* new cover field */
+#new_cover {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#new_cover label {
+  font-style: italic;
+  font-size: smaller;
 }
 /* top authors (displays by default) */
 .top_authors {
@@ -155,6 +192,11 @@ header {
 .book {
   border: 0.5px solid grey;
   border-radius: 8px;
+  color: rgb(253, 253, 253);
+  font-weight: bolder;
+  font-size: large;
+  height: fit-content;
+  width: fit-content;
 }
 #book_actions {
   display: flex;
@@ -217,13 +259,27 @@ header {
 /*  */
 
 /* LOGIN/REGISTER */
-
+/* login and register form container (contains the sliding animation) */
+.login_register_form_container {
+}
+.login_form {
+  animation: fadeIn ease 900ms;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .login_container {
+  background-color: rgb(184, 166, 126, 0.8);
+  color:rgb(48, 42, 30);
+  width:fit-content;
+  height: fit-content;
   border: 2px solid azure;
+  border-radius: 6px;
   margin-top:5%;
   display: grid;
   justify-items: center;
   gap:15px;
+  padding:2rem;
 }
 .login_label {
   font-style: italic;
@@ -232,7 +288,7 @@ header {
   font-size: medium;
   font-weight: bold;
   padding:3px;
-  background-color: rgb(169, 224, 250);
+  background-color: rgb(169, 224, 250,0.4);
   border-radius: 5px;
   box-shadow: 2px 2px rgb(69, 238, 224);
 }
@@ -260,9 +316,13 @@ header {
   transform: scale(1.1);
   font-weight: bolder;
 }
+.login_container h4 {
+  font-size: large;
 
+  margin: 0;
+}
 .login_container span {
-  color:rgb(54, 171, 244);
+  color:rgb(204, 233, 252);
 }
 .login_container span:hover {
   cursor: pointer;

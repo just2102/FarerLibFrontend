@@ -8,19 +8,21 @@ type Inputs = {
     password: string,
   };
 interface Props {
-    setRegisterVisible: Dispatch<SetStateAction<boolean>>
-    setLoginVisible: Dispatch<SetStateAction<boolean>>
+    showLogin: () => void
 
     isLogging: boolean
     loginError: string | null
 }
 
 
-const Register = ({setRegisterVisible, setLoginVisible, isLogging, loginError}:Props) => {
+const Register = ({showLogin, isLogging, loginError}:Props) => {
+    const [isHiding, setIsHiding] = useState(false)
+
     const dispatch = useAppDispatch()
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
     const [registerSuccessMessage, setRegisterSuccessMessage] = useState(false)
     const [registerFailureMessage, setRegisterFailureMessage] = useState(false)
+    
     const onSubmit: SubmitHandler<Inputs> = async(data) => {
         const response = await dispatch(registerRequest(data))
         if (response.payload===true) {
@@ -29,8 +31,12 @@ const Register = ({setRegisterVisible, setLoginVisible, isLogging, loginError}:P
             setRegisterFailureMessage(true)
         }
     }
+    const onShowLogin = () => {
+        setIsHiding(true)
+        showLogin()
+    }
     return ( 
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form className={`login_form`} onSubmit={handleSubmit(onSubmit)}>
         <div className="login_container">
             <h4><label>Register</label></h4>
                 <label className="login_label" htmlFor="username">Username</label>
@@ -46,10 +52,7 @@ const Register = ({setRegisterVisible, setLoginVisible, isLogging, loginError}:P
                 <input disabled={isLogging} className={`login_submit ${isLogging && 'button_disabled'}`} type="submit" value={'Register'} />
 
                 <div>Already registered?</div>
-                <div><span onClick={()=>{
-                    setRegisterVisible(false);
-                    setLoginVisible(true)
-                }}>Log in</span> instead</div>
+                <div><span onClick={onShowLogin}>Log in</span> instead</div>
         </div>
         </form>
      );

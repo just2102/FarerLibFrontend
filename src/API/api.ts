@@ -15,8 +15,10 @@ export const booksAPI = {
   getAllBooks() {
     return instance.get(`books`);
   },
+  generateBookCover(bookId: string,summary:string) {
+    return instance.post(`dalle`, {bookId, summary} )
+  },
   postBook(newBook: BookType) {
-    debugger;
     return instance.post(
       `books/`,
       newBook

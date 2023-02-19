@@ -1,3 +1,4 @@
+import { getAllAuthors } from './authorSlice';
 import { BookType } from "./../../Types/Types";
 import { booksAPI } from "./../../API/api";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
@@ -39,7 +40,11 @@ export const postBookRequest = createAsyncThunk(
   async (book: BookType, { dispatch }) => {
     const response = await booksAPI.postBook(book);
     if (response.status === 200) {
-      dispatch(addBookSuccess(response.data));
+      await booksAPI.getBookById(response.data._id).then(response2=>{
+        dispatch(addBookSuccess(response2.data));
+      })
+      // refetch authors too
+      dispatch(getAllAuthors())
       return true;
     } else return false;
   }
@@ -51,6 +56,8 @@ export const deleteBookRequest = createAsyncThunk(
     const response = await booksAPI.deleteBookById(bookId);
     if (response.status === 200) {
       dispatch(deleteBookSuccess(bookId));
+      // refetch authors too
+      dispatch(getAllAuthors())
       return true;
     } else return false;
   }

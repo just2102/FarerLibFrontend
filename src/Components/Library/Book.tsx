@@ -24,6 +24,7 @@ const customStyles = {
       transform: 'translate(-50%, -50%)',
     },
   };
+const defaultCover = "https://res.cloudinary.com/do6ggmadv/image/upload/v1676779721/defaultcover_ylne0q.png"
 
 const Book = ({book}:Props) => {
     const dispatch = useAppDispatch()
@@ -58,9 +59,14 @@ const Book = ({book}:Props) => {
     const onBorrowClick = () => {
         dispatch(toggleBookStatusRequest(book))
     }
-
+    
     return ( 
-        <div className="book" onMouseEnter={bookHoverHandler} onMouseLeave={bookHoverHandler}>
+        <div className="book" onMouseEnter={bookHoverHandler} onMouseLeave={bookHoverHandler}
+        style={
+            {backgroundImage: `url(${book.cover ? book.cover.url : defaultCover})`,
+            backgroundRepeat: 'no-repeat',
+            width:'fit-content',
+            height:'fit-content',}}>
             <div id="book_actions" className={bookActionsVisible ? "actions_visible" : "actions_invisible"} >
             <div className="book_delete">
                 <img id="book_delete_button" onClick={()=>setDeleteBookModalOpen(true)} src={deleteIcon} alt="" />

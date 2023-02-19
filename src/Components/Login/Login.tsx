@@ -1,28 +1,33 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
 import { loginRequest } from "../../Redux/slices/authSlice";
+
+
 
 type Inputs = {
     username: string,
     password: string,
   };
 interface Props {
-    setRegisterVisible: Dispatch<SetStateAction<boolean>>
-    setLoginVisible: Dispatch<SetStateAction<boolean>>
+    showRegister: () => void
 
     isLogging: boolean
     loginError: string | null
 }
 
-const Login = ({setRegisterVisible, setLoginVisible, isLogging, loginError}:Props) => {
+const Login = ({showRegister, isLogging, loginError}:Props) => {
     const dispatch = useAppDispatch()
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
     const onSubmit: SubmitHandler<Inputs> = data => {
         dispatch(loginRequest(data))
     }
+    const onShowRegister = () => {
+        showRegister()
+    }
+
     return ( 
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form className={`login_form`} onSubmit={handleSubmit(onSubmit)}>
         <div className="login_container">
             <h4><label>Login</label></h4>
                 <label className="login_label" htmlFor="username">Username</label>
@@ -37,10 +42,7 @@ const Login = ({setRegisterVisible, setLoginVisible, isLogging, loginError}:Prop
                 <input disabled={isLogging} className={`login_submit ${isLogging && 'button_disabled'}`} type="submit" value={'Login'} />
 
                 <div>Not registered?</div>
-                <div><span onClick={()=>{
-                    setLoginVisible(false);
-                    setRegisterVisible(true)
-                }}>Sign up</span> instead</div>
+                <div><span onClick={onShowRegister}>Sign up</span> instead</div>
         </div>
         </form>
      );
