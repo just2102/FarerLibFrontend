@@ -6,11 +6,13 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface BookState {
   books: BookType[] | [];
   isFetching: boolean;
+  isGeneratingCover: boolean
 }
 
 const initialState: BookState = {
   books: [],
   isFetching: false,
+  isGeneratingCover: false
 };
 
 export const getAllBooks = createAsyncThunk(
@@ -79,11 +81,24 @@ export const toggleBookStatusRequest = createAsyncThunk(
     `books/updateBookStatusRequest`,
     async(book: BookType, {dispatch}) => {
         const response = await booksAPI.toggleBookStatus(book)
-        console.log(response)
         if (response.status===200) {
             dispatch(toggleStatusSuccess(book))
         }
     }
+)
+
+export const generateCoverRequest = createAsyncThunk(
+  `books/generateCover`,
+  async(prompt:string, {dispatch})=>{
+    dispatch(toggleIsGeneratingCover())
+    const response = await booksAPI.generateBookCover(prompt)
+    if (response.status===200) {
+      console.log(response)
+      dispatch(toggleIsGeneratingCover())
+      return response
+    }
+    dispatch(toggleIsGeneratingCover())
+  }
 )
 
 export const bookSlice = createSlice({
@@ -117,6 +132,9 @@ export const bookSlice = createSlice({
                 state.books[i].available = !state.books[i].available
             }
         }
+    },
+    toggleIsGeneratingCover: (state) => {
+      state.isGeneratingCover = !state.isGeneratingCover
     }
   },
 });
@@ -127,7 +145,8 @@ export const {
   addBookSuccess,
   deleteBookSuccess,
   updateBookSuccess,
-  toggleStatusSuccess
+  toggleStatusSuccess,
+  toggleIsGeneratingCover
 } = bookSlice.actions;
 export default bookSlice.reducer;
 

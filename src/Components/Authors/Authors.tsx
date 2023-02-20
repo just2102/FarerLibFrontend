@@ -18,6 +18,7 @@ const Authors = () => {
     return <Author key={index} author={author}></Author>
   })
   return <div className="authors_container">
+    <h2>Authors</h2>
     {isFetching && <Preloader loadingText="Loading authors..."/>}
     {!isFetching && authors.length>0 && authorsMapped}
     {(authors.length===0 && !isFetching ) && <div>

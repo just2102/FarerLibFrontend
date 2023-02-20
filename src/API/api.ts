@@ -15,8 +15,8 @@ export const booksAPI = {
   getAllBooks() {
     return instance.get(`books`);
   },
-  generateBookCover(bookId: string,summary:string) {
-    return instance.post(`dalle`, {bookId, summary} )
+  generateBookCover(summary:string) {
+    return instance.post(`dalle`, {summary})
   },
   postBook(newBook: BookType) {
     return instance.post(

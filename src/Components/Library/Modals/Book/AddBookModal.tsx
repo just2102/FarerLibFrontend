@@ -2,8 +2,9 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Modal from "react-modal";
 import { useAppDispatch, useAppSelector } from "../../../../Redux/hooks";
-import { postBookRequest } from "../../../../Redux/slices/bookSlice";
+import { generateCoverRequest, postBookRequest } from "../../../../Redux/slices/bookSlice";
 import { AuthorType, BookType } from "../../../../Types/Types";
+import Preloader from "../../../Common/Preloader";
 import ChooseAuthorModal from "../Author/ChooseAuthorModal";
 const customStyles = {
   overlay: {
@@ -38,16 +39,16 @@ const AddBookModal = ({ closeModal }: Props) => {
   const finalSelectedAuthor = useAppSelector(
     (state) => state.authors.finalSelectedAuthor
   );
+  const isGeneratingCover = useAppSelector(state=>state.books.isGeneratingCover)
   const dispatch = useAppDispatch();
   // react-hook-form controls
-  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
+  const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>();
+  const [generatedCover, setGeneratedCover] = useState<null|string>(null)
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     // should send finalSelectedAuthor.id instead of selected author name (API demands an ID)
     const authorId = finalSelectedAuthor?._id;
     // should send selectedGenre (local useState variable)
     const genre = selectedGenre;
-    // get selected cover option
-    const coverSelection: "generate" | "upload" | undefined = getCoverSelection()
     // create an object from collected data (and verify)
     let newBook: BookType;
     if (authorId && genre) {
@@ -64,7 +65,7 @@ const AddBookModal = ({ closeModal }: Props) => {
         newBook.year = Number(data.year.toString().trim());
       }
       // if user uploaded a cover, save it as base64
-      if (coverSelection==="upload" && data.cover) {
+      if (coverOption==="upload" && data.cover) {
         const reader = new FileReader();
         reader.readAsDataURL(data.cover[0]);
         newBook.cover = await new Promise((resolve)=>{
@@ -72,6 +73,11 @@ const AddBookModal = ({ closeModal }: Props) => {
             resolve(reader.result as string)
           }
         })
+        console.log(newBook.cover)
+      }
+      // if user chose to generate a cover, save it to the newBook object
+      if (coverOption==="generate" && generatedCover) {
+        newBook.cover =  generatedCover
       }
       const response = await dispatch(postBookRequest(newBook));
       // if server responds OK, close modal and rerender library
@@ -130,21 +136,14 @@ const AddBookModal = ({ closeModal }: Props) => {
   const [authorModalOpen, setAuthorModalOpen] = useState<boolean>(false);
 
   // book cover options
-  const [generateCoverDisplay, setGenerateCoverDisplay] = useState(false)
-  const [uploadCoverDisplay, setUploadCoverDisplay] = useState(false)
-  const chooseGenerateCoverOption = () => {
-    setGenerateCoverDisplay(true)
-    setUploadCoverDisplay(false)
-  }
-  const chooseUploadCoverOption = () => {
-    setUploadCoverDisplay(true)
-    setGenerateCoverDisplay(false)
-  }
-  const getCoverSelection = () => {
-    if (generateCoverDisplay) {
-      return 'generate'
-    } else if (uploadCoverDisplay) {
-      return 'upload'
+  // 'default', 'generate', 'upload'
+  const [coverOption, setCoverOption] = useState<'default'|'generate'|'upload'>('default')
+  // generate book cover and display it
+  const formData = watch()
+  const generateCover = async() => {
+    if (formData.summary) {
+      const responseCover:any = await dispatch(generateCoverRequest(formData.summary))
+      setGeneratedCover(`data:image/jpeg;base64,${responseCover.payload.data.photo}`)
     }
   }
   //   rerender if user set author or genre
@@ -214,8 +213,8 @@ const AddBookModal = ({ closeModal }: Props) => {
 
         <div id="new_summary">
           <label htmlFor="newSummaryInput">Summary</label>
-          <textarea {...register("summary", {required:generateCoverDisplay})} id="newSummaryInput" placeholder={"This book is about..."}></textarea>
-          {(errors.summary && generateCoverDisplay ) && <span>Please provide a meaningful summary if you wish to generate a book cover</span> }
+          <textarea disabled={isGeneratingCover} {...register("summary", {required:coverOption==='generate'})} id="newSummaryInput" placeholder={"This book is about..."}></textarea>
+          {(errors.summary && coverOption==='generate' ) && <span>Please provide a meaningful summary if you wish to generate a book cover</span> }
         </div>
 
         <div id="new_year">
@@ -238,31 +237,47 @@ const AddBookModal = ({ closeModal }: Props) => {
         </div>
 
         <fieldset id="new_cover">
-            <legend>Upload or generate book cover?</legend>
-
+            <legend>Book cover options</legend>
           <input 
           {...register("generateRadioGroup")} 
-          onClick={chooseGenerateCoverOption}
+          disabled={!formData.summary}
+          onClick={()=>{setCoverOption('generate'); generateCover()}}
           type="radio" 
           id="cover_generate" 
-          name="cover_option" 
+          name="cover_option"
+          checked={coverOption==='generate'}
           />
           <label htmlFor="cover_generate">Generate (summary required)</label>
 
           <input 
           {...register("generateRadioGroup")} 
-          onClick={chooseUploadCoverOption}
+          onClick={()=>setCoverOption('default')}
+          disabled={isGeneratingCover}
+          type="radio" 
+          id="cover_default" 
+          name="cover_option"
+          checked={coverOption==='default'}
+          />
+          <label htmlFor="cover_default">Default Cover</label>
+
+          <input 
+          {...register("generateRadioGroup")} 
+          onClick={()=>setCoverOption('upload')}
+          disabled={isGeneratingCover}
           type="radio" 
           id="cover_upload" 
-          name="cover_option"  
+          name="cover_option"
+          checked={coverOption==='upload'} 
           />
           <label htmlFor="cover_upload">Upload</label>
           
-          {uploadCoverDisplay && <>
-          <input type="file" {...register("cover")} />
+          {coverOption==='upload' && <>
+          <input type="file" {...register("cover", {required:coverOption==='upload'})} />
           </>}
+          {isGeneratingCover && <Preloader loadingText="Generating cover... This might take a while..."></Preloader> }
+          {generatedCover && <img id="generated_cover_preview" src={generatedCover} alt="" /> }
         </fieldset>
-        <button id="add_book_button">Add</button>
+        <button disabled={isGeneratingCover} id="add_book_button" className={`${isGeneratingCover ? "button_disabled" : ""}`}>Add</button>
       </form>
     </div>
   );

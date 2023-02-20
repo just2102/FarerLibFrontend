@@ -8,6 +8,15 @@ button {
   background-color: rgb(157, 128, 102) !important;
   color: whitesmoke !important;
 }
+.preloader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.preloader_text {
+  font-style: italic;
+}
 button:hover {
   border-color: aliceblue !important;
 }
@@ -75,7 +84,22 @@ header {
 .add_book_modal {
   display: grid;
   justify-items: center;
-  gap:10px;
+  gap:4px;
+}
+.add_book_modal h2 {
+  margin:0;
+}
+.add_book_modal .preloader {
+  width:30%;
+}
+.add_book_modal .preloader img {
+  width:50%;
+  height:50%;
+}
+.add_book_modal .preloader_text {
+  font-size: small;
+  border: 0;
+  padding: 0;
 }
 .add_book_modal label {
 
@@ -111,6 +135,7 @@ header {
   justify-items: center;
 }
 #choose_author_button {
+  margin-top:10px;
   width:50%;
 }
 /* new summary field */
@@ -178,6 +203,10 @@ header {
   cursor: pointer;
 }
 
+/* generated cover preview */
+#generated_cover_preview {
+  width:10rem;
+}
 
 #add_book_button {
   justify-self: stretch;
@@ -223,16 +252,17 @@ header {
 
 }
 .book_title {
-
+  background-color: rgb(250, 235, 215,0.3);
+  border:1px solid
 }
 .book_author {
-
+  background-color: rgb(250, 235, 215,0.3);
 }
 .book_year {
-
+  background-color: rgb(250, 235, 215,0.3);
 }
 .book_genre {
-
+  background-color: rgb(250, 235, 215,0.3);
 }
 .book_edit {
   display: grid;
@@ -246,14 +276,28 @@ header {
 
 
 /* AUTHORS */
-.authors {
-  
+.authors_container {
+  color:azure;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap:1rem;
 }
 
 .author {
   display: flex;
   flex-direction: column;
-  border: 1px black solid;
+  border: 3px black solid;
+  border-radius: 5px;
+  font-size: larger;
+  background-color: rgb(250, 235, 215,0.4);
+}
+.author_name {
+  font-weight: bold;
+  border:1px solid
+}
+.author_latestbook {
+
 }
 
 /*  */
