@@ -1,4 +1,4 @@
-import { AuthorType } from './../../Types/Types';
+import { AuthorType, BookType } from './../../Types/Types';
 
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { authorsAPI } from './../../API/api';
@@ -51,6 +51,7 @@ export const postAuthorRequest = createAsyncThunk(
     }
 )
 
+
 export const authorSlice = createSlice({
     name:'book',
     initialState,
@@ -66,11 +67,23 @@ export const authorSlice = createSlice({
         },
         postAuthorSuccess:(state,action:PayloadAction<AuthorType>)=> {
             state.authors = [...state.authors, action.payload]
+        },
+        updateAuthorBook: (state,action:PayloadAction<any>)=> {
+            console.log(action.payload)
+            for (let i = 0; i<state.authors.length; i++) {
+                if (state.authors[i]._id===action.payload.author._id) {
+                    for (let j = 0; j<state.authors[i].books.length; j++) {
+                        if (state.authors[i].books[j]._id===action.payload._id) {
+                            state.authors[i].books[j] = action.payload
+                        }
+                    }
+                }
+            }
         }
     }
 })
 
 
-export const {setAuthors, toggleIsFetching, setFinalSelectedAuthor, postAuthorSuccess} = authorSlice.actions
+export const {setAuthors, toggleIsFetching, setFinalSelectedAuthor, postAuthorSuccess, updateAuthorBook} = authorSlice.actions
 
 export default authorSlice.reducer

@@ -1,4 +1,4 @@
-import { getAllAuthors } from './authorSlice';
+import { getAllAuthors, updateAuthorBook } from './authorSlice';
 import { BookType } from "./../../Types/Types";
 import { booksAPI } from "./../../API/api";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
@@ -69,9 +69,12 @@ export const updateBookRequest = createAsyncThunk(
   `books/updateBookRequest`,
   async (book: BookType, { dispatch }) => {
     const response = await booksAPI.updateBookById(book);
+    console.log(response)
     // if update was successful, fetch this book from DB again and change state
     if (response.status === 200) {
       dispatch(getBookById(book._id));
+      // 
+      dispatch(updateAuthorBook(response.data.data))
       return true;
     } else return false;
   }

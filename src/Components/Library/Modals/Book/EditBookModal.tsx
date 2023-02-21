@@ -101,6 +101,10 @@ const EditBookModal = ({
       if (coverOption === "generate" && generatedCover) {
         updatedBook.cover = generatedCover;
       }
+      // if user chose to leave old cover
+      if (coverOption === "default" && book.cover) {
+        updatedBook.cover = "NOCHANGE"
+      } 
       const response = await dispatch(updateBookRequest(updatedBook));
       // if server responds OK, close modal and rerender library
       if (response.payload === true) {
@@ -162,6 +166,7 @@ const EditBookModal = ({
   // cover options
   // book cover options
   // 'default', 'generate', 'upload'
+  // default leaves the old cover
   const [coverOption, setCoverOption] = useState<
     "default" | "generate" | "upload"
   >("default");
@@ -310,7 +315,7 @@ const EditBookModal = ({
                 name="cover_option"
                 checked={coverOption === "default"}
               />
-              <label htmlFor="cover_default">Default Cover</label>
+              <label htmlFor="cover_default">Don't update</label>
 
               <input
                 {...register("generateRadioGroup")}
@@ -333,6 +338,7 @@ const EditBookModal = ({
                   />
                 </>
               )}
+
               {isGeneratingCover && (
                 <Preloader loadingText="Generating cover... This might take a while..."></Preloader>
               )}

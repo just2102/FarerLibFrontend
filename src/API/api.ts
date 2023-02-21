@@ -2,8 +2,8 @@ import axios from "axios";
 import { AuthorType, BookType } from "../Types/Types";
 
 const instance = axios.create({
-  // baseURL: "https://farerlib.onrender.com/api/",
-  baseURL: "http://localhost:3000/api/",
+  baseURL: "https://farerlib.onrender.com/api/",
+  // baseURL: "http://localhost:3000/api/",
   // headers: {
   //     'Content-Type': "application/json"
   // }

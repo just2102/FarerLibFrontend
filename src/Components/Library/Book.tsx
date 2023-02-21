@@ -7,7 +7,7 @@ import EditBookModal from "./Modals/Book/EditBookModal";
 import availableIcon from "../../assets/book-green.svg"
 import unavailableIcon from "../../assets/book-red.svg"
 import borrowIcon from "../../assets/borrow.png"
-import { useAppDispatch } from "../../Redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
 import { toggleBookStatusRequest } from "../../Redux/slices/bookSlice";
 
 interface Props {
@@ -27,6 +27,7 @@ const customStyles = {
 const defaultCover = "https://res.cloudinary.com/do6ggmadv/image/upload/v1676779721/defaultcover_ylne0q.png"
 
 const Book = ({book}:Props) => {
+    const isAuthorized = useAppSelector(state=>state.auth.isAuthorized)
     const dispatch = useAppDispatch()
 
     let author = book.author
@@ -44,29 +45,33 @@ const Book = ({book}:Props) => {
     }
 
 // delete book modal
-    const [deleteBookModalOpen, setDeleteBookModalOpen] = useState(false)
+    const [deleteBookModalOpen, setDeleteBookModalOpen] = useState<boolean>(false)
     const closeDeleteModal = () => {
         setDeleteBookModalOpen(false)
     }
-
 // edit book modal
-    const [editBookModalOpen, setEditBookModalOpen] = useState(false)
+    const [editBookModalOpen, setEditBookModalOpen] = useState<boolean>(false)
     const closeEditModal = () => {
         setEditBookModalOpen(false)
     }
-
 // book status change (borrow)
     const onBorrowClick = () => {
         dispatch(toggleBookStatusRequest(book))
     }
-    
+// display book summary (if it exists)
+    const [displaySummary, setDisplaySummary] = useState<boolean>(false)
+    const onDisplaySummaryClick = () => {
+        setDisplaySummary(!displaySummary)
+    }
     return ( 
         <div className="book" onMouseEnter={bookHoverHandler} onMouseLeave={bookHoverHandler}
         style={
             {backgroundImage: `url(${book.cover ? book.cover.url : defaultCover})`,
             backgroundRepeat: 'no-repeat',
             width:'fit-content',
-            height:'fit-content',}}>
+            height:'100%',
+            }}>
+            {isAuthorized &&  
             <div id="book_actions" className={bookActionsVisible ? "actions_visible" : "actions_invisible"} >
             <div className="book_delete">
                 <img id="book_delete_button" onClick={()=>setDeleteBookModalOpen(true)} src={deleteIcon} alt="" />
@@ -81,22 +86,26 @@ const Book = ({book}:Props) => {
                 <img id="book_borrow_button" onClick={onBorrowClick} src={borrowIcon} alt="" />
             </div>
             </div>
-            <div className="book_title">{`Title: ${book.title}`}</div>
-            <div className="book_author">{`Written by: ${authorName}`}</div>
+            }
+            <div className="book_title">{`${book.title}`}</div>
+            <div className="book_author">{`${authorName}`}</div>
             {book.year && <div className="book_year">{`Published: ${book.year}`}</div>}
             
             <div className="book_genre">Genre: {book.genre}</div>
 
+            {book.summary && <button id="book_summary_display_button" className={displaySummary ? 'button_active' : ''} onClick={onDisplaySummaryClick} type="button">Summary</button> }
+            {displaySummary &&
             <div className="book_summary">
                 {book.summary && <div className="book_summary_edit"> <span>{book.summary}</span></div>}
             </div>
-
+            }
             <div className="book_available">
                 {book.available 
                 ? <img src={availableIcon} alt="" />
                 : <img src={unavailableIcon} alt="" /> }
             </div>
             
+            {isAuthorized &&
             <div className="book_edit">
                 <button 
                 id="book_edit_button" 
@@ -110,6 +119,7 @@ const Book = ({book}:Props) => {
                 onRequestClose={()=>setEditBookModalOpen(false)}
                 ><EditBookModal authorName={authorName} authorId={authorId} book={book} closeEditModal={closeEditModal}></EditBookModal></Modal>
             </div>
+            }
         </div>
      );
 }

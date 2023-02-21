@@ -6,6 +6,7 @@ interface Props {
 
 const Author = ({author}:Props) => {
     let latestBook = author.books.slice(-1)[0]
+    console.log(latestBook)
     return ( 
         <div className="author">
             <div className="author_name">{author.first_name + " " + author.last_name}</div>

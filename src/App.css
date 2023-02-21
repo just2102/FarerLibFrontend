@@ -5,8 +5,9 @@
   text-align: center;
 }
 button {
-  background-color: rgb(157, 128, 102) !important;
+  background-color: rgb(157, 128, 102,0.8) !important;
   color: whitesmoke !important;
+  transition: 200ms !important;
 }
 .preloader {
   display: flex;
@@ -19,12 +20,20 @@ button {
 }
 button:hover {
   border-color: aliceblue !important;
+  transform: scale(1.05);
 }
 .button_disabled {
   opacity: 0.5 !important;
 }
 .button_disabled:hover {
   transform: scale(1) !important;
+}
+.button_active {
+  border: 1px solid rgb(236, 224, 224);
+  box-shadow: 2px 2px rgb(82, 79, 63);
+}
+.button_active:hover {
+  
 }
 @keyframes fadeIn {
   from {
@@ -58,11 +67,26 @@ button:hover {
 
 
 header {
+  margin-top:-2%;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: rgb(119, 173, 240);
+  background-color: rgb(218, 195, 144,0.7);
+  color:black;
   padding:1.3rem;
+  font-size: large;
+  font-weight: bold;
+}
+header a {
+  color:rgb(146, 83, 83);
+  transition: 200ms;
+}
+header a:hover {
+  transition: 200ms;
+  color: rgb(241, 167, 167);
+}
+#header_logo {
+  width:12rem;
 }
 .login_section {
   display: flex;
@@ -213,6 +237,7 @@ header {
 }
 
 .library {
+  animation: fadeIn ease 500ms;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   justify-items: center;
@@ -225,8 +250,14 @@ header {
   color: rgb(253, 253, 253);
   font-weight: bolder;
   font-size: large;
-  height: fit-content;
-  width: fit-content;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding:2rem;
+  display: flex;
+  flex-direction: column;
+  gap:10px;
+  justify-content: space-between;
 }
 #book_actions {
   display: flex;
@@ -253,22 +284,49 @@ header {
 
 }
 .book_title {
-  background-color: rgb(250, 235, 215,0.3);
-  border:1px solid
+  background-color: rgba(110, 104, 96, 0.6);
+  padding:5px;
+
+  border:1px solid;
+  border-radius: 5px;
 }
 .book_author {
-  background-color: rgb(250, 235, 215,0.3);
+  background-color: rgba(70, 67, 63, 0.6);
+  padding:5px;
+  font-style: italic;
 }
 .book_year {
-  background-color: rgb(250, 235, 215,0.3);
+  padding:5px;
+  background-color: rgba(110, 104, 96, 0.6);
 }
 .book_genre {
-  background-color: rgb(250, 235, 215,0.3);
+  padding:5px;
+  background-color: rgba(110, 104, 96, 0.6);
+}
+#book_summary_display_button {
+  font-style: italic;
+  justify-self: center;
+  align-self: center;
+  padding: 5px 3px;
+  font-size: small;
+  background-color: rgba(94, 87, 87, 0.3) !important;
+}
+.book_summary {
+  background-color: rgba(110, 104, 96, 0.6);
+}
+.book_available {
+
+}
+.book_available img {
+  width:50px;
 }
 .book_edit {
   display: grid;
   align-items: center;
   justify-items: center;
+}
+#book_edit_button {
+  background-color: rgb(157, 128, 102,0.75) !important;
 }
 
 
@@ -278,6 +336,7 @@ header {
 
 /* AUTHORS */
 .authors_container {
+  animation: fadeIn ease 600ms;
   color:azure;
   display: flex;
   flex-direction: column;
