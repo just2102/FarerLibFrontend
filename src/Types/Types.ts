@@ -25,5 +25,6 @@ export type BookType = {
 export type UserType = {
   username: string,
   role: string,
-  id: string
+  id: string,
+  books: any[]
 }

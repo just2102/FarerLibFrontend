@@ -6,6 +6,7 @@ import Preloader from './Components/Common/Preloader'
 import Header from './Components/Header/Header'
 import Library from './Components/Library/Library'
 import LoginContainer from './Components/Login/LoginContainer'
+import MyBooks from './Components/MyBooks/MyBooks'
 import { useAppDispatch, useAppSelector } from './Redux/hooks'
 import { requestInit } from './Redux/slices/appSlice'
 // import MyBooks from './Components/MyBooks/MyBooks'
@@ -28,6 +29,7 @@ function App() {
       <Header></Header>
       <Routes>
         <Route path='/library' element={<Library/>} ></Route>
+        <Route path='/mybooks' element={<MyBooks/>}></Route>
         <Route path='/authors' element={<Authors/>}></Route>
         <Route path='/login' element={<LoginContainer/>}></Route>
       </Routes>

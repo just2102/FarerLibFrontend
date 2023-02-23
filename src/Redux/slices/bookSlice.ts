@@ -1,18 +1,22 @@
 import { getAllAuthors, updateAuthorBook } from './authorSlice';
-import { BookType } from "./../../Types/Types";
+import { BookType, UserType } from "./../../Types/Types";
 import { booksAPI } from "./../../API/api";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface BookState {
   books: BookType[] | [];
   isFetching: boolean;
-  isGeneratingCover: boolean
+  isGeneratingCover: boolean;
+
+  currentUserBooks: BookType[]
 }
 
 const initialState: BookState = {
   books: [],
   isFetching: false,
-  isGeneratingCover: false
+  isGeneratingCover: false,
+
+  currentUserBooks: [],
 };
 
 export const getAllBooks = createAsyncThunk(
@@ -104,12 +108,47 @@ export const generateCoverRequest = createAsyncThunk(
   }
 )
 
+export const getUserBooks = createAsyncThunk(
+  "auth/getUserBooks",
+  async (userId:string, {dispatch}) => {
+    dispatch(toggleIsFetching())
+    const response = await booksAPI.getUserBooks(userId)
+    if (response.status===200) {
+      dispatch(setCurrentUserBooks(response.data))
+    }
+    dispatch(toggleIsFetching())
+  }
+)
+
+export const bookmarkRequest = createAsyncThunk(
+  "auth/bookmarkRequest",
+  async ({userId, bookId}:any, {dispatch}) => {
+    const response = await booksAPI.bookmarkRequest(userId, bookId)
+    if (response.status===200) {
+      console.log(response)
+    }
+  }
+)
+
+export const unbookmarkRequest = createAsyncThunk(
+  "auth/unbookmarkRequest",
+  async ({userId, bookId}:any, {dispatch}) => {
+    const response = await booksAPI.getUserBooks(userId)
+    if (response.status===200) {
+      console.log(response)
+    }
+  }
+)
+
 export const bookSlice = createSlice({
   name: "book",
   initialState,
   reducers: {
     setBooks: (state, action: PayloadAction<BookType[]>) => {
       state.books = action.payload;
+    },
+    setCurrentUserBooks: (state, action: PayloadAction<BookType[]>) => {
+      state.currentUserBooks = action.payload
     },
     toggleIsFetching: (state) => {
       state.isFetching = !state.isFetching;
@@ -144,6 +183,7 @@ export const bookSlice = createSlice({
 
 export const {
   setBooks,
+  setCurrentUserBooks,
   toggleIsFetching,
   addBookSuccess,
   deleteBookSuccess,

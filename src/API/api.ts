@@ -1,9 +1,10 @@
+import { UserType } from './../Types/Types';
 import axios from "axios";
 import { AuthorType, BookType } from "../Types/Types";
 
 const instance = axios.create({
-  baseURL: "https://farerlib.onrender.com/api/",
-  // baseURL: "http://localhost:3000/api/",
+  // baseURL: "https://farerlib.onrender.com/api/",
+  baseURL: "http://localhost:3000/api/",
   // headers: {
   //     'Content-Type': "application/json"
   // }
@@ -41,6 +42,16 @@ export const booksAPI = {
   toggleBookStatus(book: BookType) {
     return instance.patch(`books/${book._id}`, book);
   },
+
+  getUserBooks(userId: string) {
+    return instance.get(`books/users/${userId}`)
+  },
+  bookmarkRequest(userId:string, bookId:string) {
+    return instance.post(`books/users/${userId}`, {bookId})
+  },
+  unbookmarkRequest(userId:string, bookId:string) {
+    return instance.patch(`books/users/${userId}`, {bookId})
+  }
 };
 
 export const authorsAPI = {

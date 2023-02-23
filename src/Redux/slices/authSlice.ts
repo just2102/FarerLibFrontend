@@ -6,14 +6,14 @@ interface authState {
   currentUser: UserType | null;
   isAuthorized: boolean;
   isLogging: boolean;
-  loginError: null | string
+  loginError: null | string;
 }
 
 const initialState: authState = {
   currentUser: null,
   isAuthorized: false,
   isLogging: false,
-  loginError: null
+  loginError: null,
 };
 
 export const whoAmI = createAsyncThunk(
@@ -92,7 +92,7 @@ export const authSlice = createSlice({
     },
     setLoginError: (state,action:PayloadAction<string|null>) => {
       state.loginError = action.payload
-    }
+    },
   },
 });
 

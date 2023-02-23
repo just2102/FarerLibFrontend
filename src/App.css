@@ -17,6 +17,7 @@ button {
 }
 .preloader_text {
   font-style: italic;
+  color: white;
 }
 button:hover {
   border-color: aliceblue !important;
@@ -238,13 +239,19 @@ header a:hover {
 
 .library {
   animation: fadeIn ease 500ms;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  justify-items: center;
-  grid-gap: 10px;
+  /* display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+  grid-gap: 10px; 
+  justify-items: center; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap:10px;
+
   margin-top:2%;
 }
 .book {
+  min-height: 300px;
   border: 0.5px solid grey;
   border-radius: 8px;
   color: rgb(253, 253, 253);
@@ -260,6 +267,8 @@ header a:hover {
   justify-content: space-between;
 }
 #book_actions {
+  background-color: rgba(203, 194, 194, 0.2);
+  border-radius: 20px;
   display: flex;
   justify-content: end;
 }
@@ -330,7 +339,8 @@ header a:hover {
 }
 
 
-/*  */
+/* MY BOOKS */
+/* similar to .library */
 
 
 

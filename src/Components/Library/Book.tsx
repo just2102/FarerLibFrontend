@@ -1,14 +1,20 @@
 import { BookType } from "../../Types/Types";
-import deleteIcon from "../../assets/delete_icon.svg"
 import Modal from 'react-modal';
 import { useEffect, useState } from "react";
 import DeleteBookModal from "./Modals/Book/DeleteBookModal";
 import EditBookModal from "./Modals/Book/EditBookModal";
+// assets
+import deleteIcon from "../../assets/delete_icon.svg"
 import availableIcon from "../../assets/book-green.svg"
 import unavailableIcon from "../../assets/book-red.svg"
 import borrowIcon from "../../assets/borrow.png"
+import bookmarkIcon from "../../assets/bookmark.png"
+import unbookmarkIcon from "../../assets/unbookmark.png"
+// 
+// redux
 import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
-import { toggleBookStatusRequest } from "../../Redux/slices/bookSlice";
+import { bookmarkRequest, toggleBookStatusRequest } from "../../Redux/slices/bookSlice";
+// 
 
 interface Props {
     book: BookType
@@ -28,6 +34,8 @@ const defaultCover = "https://res.cloudinary.com/do6ggmadv/image/upload/v1676779
 
 const Book = ({book}:Props) => {
     const isAuthorized = useAppSelector(state=>state.auth.isAuthorized)
+    const currentUser = useAppSelector(state=>state.auth.currentUser)
+
     const dispatch = useAppDispatch()
 
     let author = book.author
@@ -43,7 +51,6 @@ const Book = ({book}:Props) => {
         setBookEditButtonVisible(!bookEditButtonVisible)
         setBookActionsVisible(!bookActionsVisible)
     }
-
 // delete book modal
     const [deleteBookModalOpen, setDeleteBookModalOpen] = useState<boolean>(false)
     const closeDeleteModal = () => {
@@ -63,6 +70,10 @@ const Book = ({book}:Props) => {
     const onDisplaySummaryClick = () => {
         setDisplaySummary(!displaySummary)
     }
+// save (bookmark) a book
+    const onBookmarkClick = () => {
+        dispatch(bookmarkRequest({userId: currentUser?.id, bookId: book._id}))
+    }
     return ( 
         <div className="book" onMouseEnter={bookHoverHandler} onMouseLeave={bookHoverHandler}
         style={
@@ -73,18 +84,20 @@ const Book = ({book}:Props) => {
             }}>
             {isAuthorized &&  
             <div id="book_actions" className={bookActionsVisible ? "actions_visible" : "actions_invisible"} >
-            <div className="book_delete">
-                <img id="book_delete_button" onClick={()=>setDeleteBookModalOpen(true)} src={deleteIcon} alt="" />
-                <Modal 
-                isOpen={deleteBookModalOpen}
-                style={customStyles}
-                onRequestClose={()=>setDeleteBookModalOpen(false)}
-
-                ><DeleteBookModal book={book} authorName={authorName} closeDeleteModal={closeDeleteModal}></DeleteBookModal></Modal>
-            </div>
-            <div className="book_borrow">
-                <img id="book_borrow_button" onClick={onBorrowClick} src={borrowIcon} alt="" />
-            </div>
+                <div className="book_delete">
+                    <img id="book_delete_button" onClick={()=>setDeleteBookModalOpen(true)} src={deleteIcon} alt="delete" />
+                    <Modal 
+                    isOpen={deleteBookModalOpen}
+                    style={customStyles}
+                    onRequestClose={()=>setDeleteBookModalOpen(false)}
+                    ><DeleteBookModal book={book} authorName={authorName} closeDeleteModal={closeDeleteModal}></DeleteBookModal></Modal>
+                </div>
+                <div className="book_borrow">
+                    <img id="book_borrow_button" onClick={onBorrowClick} src={borrowIcon} alt="borrow" />
+                </div>
+                <div className="book_bookmark">
+                    <img id="book_bookmark_button" onClick={onBookmarkClick} src={bookmarkIcon} alt="bookmark" />
+                </div>
             </div>
             }
             <div className="book_title">{`${book.title}`}</div>
