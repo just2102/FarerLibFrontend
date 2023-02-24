@@ -37,6 +37,7 @@ export const getBookById = createAsyncThunk(
     const response = await booksAPI.getBookById(bookId);
     if (response.status === 200) {
       dispatch(updateBookSuccess(response.data));
+      return response.data
     }
   }
 );
@@ -124,8 +125,9 @@ export const bookmarkRequest = createAsyncThunk(
   "auth/bookmarkRequest",
   async ({userId, bookId}:any, {dispatch}) => {
     const response = await booksAPI.bookmarkRequest(userId, bookId)
-    if (response.status===200) {
-      console.log(response)
+    if (response.data.status===200) {
+      const bookmarkedBook = await dispatch(getBookById(bookId))
+      dispatch(bookmarkSuccess(bookmarkedBook.payload))
     }
   }
 )
@@ -133,9 +135,9 @@ export const bookmarkRequest = createAsyncThunk(
 export const unbookmarkRequest = createAsyncThunk(
   "auth/unbookmarkRequest",
   async ({userId, bookId}:any, {dispatch}) => {
-    const response = await booksAPI.getUserBooks(userId)
+    const response = await booksAPI.unbookmarkRequest(userId, bookId)
     if (response.status===200) {
-      console.log(response)
+      dispatch(unbookmarkSuccess(bookId))
     }
   }
 )
@@ -149,6 +151,16 @@ export const bookSlice = createSlice({
     },
     setCurrentUserBooks: (state, action: PayloadAction<BookType[]>) => {
       state.currentUserBooks = action.payload
+    },
+    bookmarkSuccess: (state, action: PayloadAction<BookType>) => {
+      state.currentUserBooks.push(action.payload)
+    },
+    unbookmarkSuccess: (state, action: PayloadAction<string>) => {
+      for (let i = 0; i<state.currentUserBooks.length; i++) {
+        if (state.currentUserBooks[i]._id===action.payload) {
+          state.currentUserBooks.splice(i,1)
+        }
+      }
     },
     toggleIsFetching: (state) => {
       state.isFetching = !state.isFetching;
@@ -184,6 +196,9 @@ export const bookSlice = createSlice({
 export const {
   setBooks,
   setCurrentUserBooks,
+  bookmarkSuccess,
+  unbookmarkSuccess,
+
   toggleIsFetching,
   addBookSuccess,
   deleteBookSuccess,

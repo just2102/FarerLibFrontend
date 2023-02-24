@@ -3,8 +3,8 @@ import axios from "axios";
 import { AuthorType, BookType } from "../Types/Types";
 
 const instance = axios.create({
-  // baseURL: "https://farerlib.onrender.com/api/",
-  baseURL: "http://localhost:3000/api/",
+  baseURL: "https://farerlib.onrender.com/api/",
+  // baseURL: "http://localhost:3000/api/",
   // headers: {
   //     'Content-Type': "application/json"
   // }
@@ -22,7 +22,8 @@ export const booksAPI = {
   postBook(newBook: BookType) {
     return instance.post(
       `books/`,
-      newBook
+      newBook,
+      { headers: {Authorization: `Bearer ${localStorage.token}`} }
       // {
       //     headers: {
       //         'Content-Type' : 'multipart/form-data'

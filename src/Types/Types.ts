@@ -16,7 +16,7 @@ export type BookType = {
   genre: string;
   available: boolean
   // optional
-  _id?: string;
+  _id?: any
   year?: number;
   summary?: string;
   cover?: any
@@ -25,6 +25,6 @@ export type BookType = {
 export type UserType = {
   username: string,
   role: string,
-  id: string,
+  id: any,
   books: any[]
 }

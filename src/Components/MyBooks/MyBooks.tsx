@@ -11,7 +11,7 @@ const MyBooks = () => {
     const currentUser = useAppSelector(state=>state.auth.currentUser)
     const currentUserBooks = useAppSelector(state=>state.books.currentUserBooks)
     const myBooksMapped = currentUserBooks.map(book=>{
-        return <Book book={book} />
+        return <Book book={book} key={book._id} isFavorite={true} />
     })
 
     useEffect(()=>{
@@ -25,6 +25,7 @@ const MyBooks = () => {
         {!isAuthorized && <Navigate to={"/login"}></Navigate>}
         {isAuthorized &&
         <div className="library">
+            {currentUserBooks.length===0 && <h2>You haven't saved any books yet!</h2> }
             {myBooksMapped}
         </div>
         }

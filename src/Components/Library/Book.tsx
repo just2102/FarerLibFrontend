@@ -13,11 +13,13 @@ import unbookmarkIcon from "../../assets/unbookmark.png"
 // 
 // redux
 import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
-import { bookmarkRequest, toggleBookStatusRequest } from "../../Redux/slices/bookSlice";
+import { bookmarkRequest, toggleBookStatusRequest, unbookmarkRequest } from "../../Redux/slices/bookSlice";
 // 
 
 interface Props {
     book: BookType
+
+    isFavorite?: boolean
 }
 
 const customStyles = {
@@ -32,7 +34,7 @@ const customStyles = {
   };
 const defaultCover = "https://res.cloudinary.com/do6ggmadv/image/upload/v1676779721/defaultcover_ylne0q.png"
 
-const Book = ({book}:Props) => {
+const Book = ({book, isFavorite}:Props) => {
     const isAuthorized = useAppSelector(state=>state.auth.isAuthorized)
     const currentUser = useAppSelector(state=>state.auth.currentUser)
 
@@ -72,7 +74,12 @@ const Book = ({book}:Props) => {
     }
 // save (bookmark) a book
     const onBookmarkClick = () => {
-        dispatch(bookmarkRequest({userId: currentUser?.id, bookId: book._id}))
+        if (!isFavorite) {
+            dispatch(bookmarkRequest({userId: currentUser?.id, bookId: book._id}))
+        }
+        if (isFavorite) {
+            dispatch(unbookmarkRequest({userId: currentUser?.id, bookId: book._id}))
+        }
     }
     return ( 
         <div className="book" onMouseEnter={bookHoverHandler} onMouseLeave={bookHoverHandler}
@@ -84,19 +91,19 @@ const Book = ({book}:Props) => {
             }}>
             {isAuthorized &&  
             <div id="book_actions" className={bookActionsVisible ? "actions_visible" : "actions_invisible"} >
-                <div className="book_delete">
+                {!isFavorite && <div className="book_delete">
                     <img id="book_delete_button" onClick={()=>setDeleteBookModalOpen(true)} src={deleteIcon} alt="delete" />
                     <Modal 
                     isOpen={deleteBookModalOpen}
                     style={customStyles}
                     onRequestClose={()=>setDeleteBookModalOpen(false)}
                     ><DeleteBookModal book={book} authorName={authorName} closeDeleteModal={closeDeleteModal}></DeleteBookModal></Modal>
-                </div>
+                </div>}
                 <div className="book_borrow">
                     <img id="book_borrow_button" onClick={onBorrowClick} src={borrowIcon} alt="borrow" />
                 </div>
                 <div className="book_bookmark">
-                    <img id="book_bookmark_button" onClick={onBookmarkClick} src={bookmarkIcon} alt="bookmark" />
+                    <img id="book_bookmark_button" onClick={onBookmarkClick} src={isFavorite ? unbookmarkIcon : bookmarkIcon} alt="bookmark" />
                 </div>
             </div>
             }
