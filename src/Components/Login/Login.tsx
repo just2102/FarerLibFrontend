@@ -43,6 +43,11 @@ const Login = ({showRegister, isLogging, loginError}:Props) => {
 
                 <div>Not registered?</div>
                 <div><span onClick={onShowRegister}>Sign up</span> instead</div>
+                <div className="testing_credentials">
+                    Testing credentials:
+                    <p>username</p>
+                    <p>username</p>
+                </div>
         </div>
         </form>
      );

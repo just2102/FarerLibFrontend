@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import Modal from "react-modal";
 import { useAppDispatch, useAppSelector } from "../../../../Redux/hooks";
 import { generateCoverRequest, postBookRequest } from "../../../../Redux/slices/bookSlice";
-import { AuthorType, BookType } from "../../../../Types/Types";
+import { AuthorType, BookType, NewBookType } from "../../../../Types/Types";
 import Preloader from "../../../Common/Preloader";
 import ChooseAuthorModal from "../Author/ChooseAuthorModal";
 const customStyles = {
@@ -50,7 +50,7 @@ const AddBookModal = ({ closeModal }: Props) => {
     // should send selectedGenre (local useState variable)
     const genre = selectedGenre;
     // create an object from collected data (and verify)
-    let newBook: BookType;
+    let newBook: NewBookType;
     if (authorId && genre) {
       newBook = {
         title: data.title.trim(),
@@ -73,7 +73,6 @@ const AddBookModal = ({ closeModal }: Props) => {
             resolve(reader.result as string)
           }
         })
-        console.log(newBook.cover)
       }
       // if user chose to generate a cover, save it to the newBook object
       if (coverOption==="generate" && generatedCover) {

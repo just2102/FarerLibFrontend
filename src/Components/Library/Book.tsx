@@ -10,6 +10,7 @@ import unavailableIcon from "../../assets/book-red.svg"
 import borrowIcon from "../../assets/borrow.png"
 import bookmarkIcon from "../../assets/bookmark.png"
 import unbookmarkIcon from "../../assets/unbookmark.png"
+import starIcon from "../../assets/star.png"
 // 
 // redux
 import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
@@ -81,8 +82,14 @@ const Book = ({book, isFavorite}:Props) => {
             dispatch(unbookmarkRequest({userId: currentUser?.id, bookId: book._id}))
         }
     }
-    return ( 
-        <div className="book" onMouseEnter={bookHoverHandler} onMouseLeave={bookHoverHandler}
+// is book editable? (only if added by me)
+const isBookEditable = () => {
+    if (currentUser?.id===book.creator) {
+      return true
+    } else return false
+  }
+    return (
+        <div className={`book ${isBookEditable() ? "my" : ""}`} onMouseEnter={bookHoverHandler} onMouseLeave={bookHoverHandler}
         style={
             {backgroundImage: `url(${book.cover ? book.cover.url : defaultCover})`,
             backgroundRepeat: 'no-repeat',
@@ -91,7 +98,7 @@ const Book = ({book, isFavorite}:Props) => {
             }}>
             {isAuthorized &&  
             <div id="book_actions" className={bookActionsVisible ? "actions_visible" : "actions_invisible"} >
-                {!isFavorite && <div className="book_delete">
+                {(!isFavorite && isBookEditable()===true) && <div className="book_delete">
                     <img id="book_delete_button" onClick={()=>setDeleteBookModalOpen(true)} src={deleteIcon} alt="delete" />
                     <Modal 
                     isOpen={deleteBookModalOpen}
@@ -124,8 +131,15 @@ const Book = ({book, isFavorite}:Props) => {
                 ? <img src={availableIcon} alt="" />
                 : <img src={unavailableIcon} alt="" /> }
             </div>
+
+            <div className="book_stars">
+                <img src={starIcon} alt="stars" />
+                <div className="book_stars_number">
+                    <span>{book.users.length}</span>
+                </div>
+            </div>
             
-            {isAuthorized &&
+            {(isAuthorized && isBookEditable()) &&
             <div className="book_edit">
                 <button 
                 id="book_edit_button" 

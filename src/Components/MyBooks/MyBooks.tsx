@@ -24,9 +24,11 @@ const MyBooks = () => {
         <>
         {!isAuthorized && <Navigate to={"/login"}></Navigate>}
         {isAuthorized &&
-        <div className="library">
+        <div className="mybooks">
             {currentUserBooks.length===0 && <h2>You haven't saved any books yet!</h2> }
-            {myBooksMapped}
+            <div className="mybooks_content">
+                {myBooksMapped}
+            </div>
         </div>
         }
         </>);

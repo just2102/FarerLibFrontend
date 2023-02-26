@@ -1,10 +1,10 @@
-import { UserType } from './../Types/Types';
+import { UserType, NewBookType } from './../Types/Types';
 import axios from "axios";
 import { AuthorType, BookType } from "../Types/Types";
 
 const instance = axios.create({
-  baseURL: "https://farerlib.onrender.com/api/",
-  // baseURL: "http://localhost:3000/api/",
+  // baseURL: "https://farerlib.onrender.com/api/",
+  baseURL: "http://localhost:3000/api/",
   // headers: {
   //     'Content-Type': "application/json"
   // }
@@ -19,7 +19,7 @@ export const booksAPI = {
   generateBookCover(summary:string) {
     return instance.post(`dalle`, {summary})
   },
-  postBook(newBook: BookType) {
+  postBook(newBook: NewBookType) {
     return instance.post(
       `books/`,
       newBook,

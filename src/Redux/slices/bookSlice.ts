@@ -1,5 +1,5 @@
 import { getAllAuthors, updateAuthorBook } from './authorSlice';
-import { BookType, UserType } from "./../../Types/Types";
+import { BookType, NewBookType, UserType } from "./../../Types/Types";
 import { booksAPI } from "./../../API/api";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -44,7 +44,7 @@ export const getBookById = createAsyncThunk(
 
 export const postBookRequest = createAsyncThunk(
   `books/postBookRequest`,
-  async (book: BookType, { dispatch }) => {
+  async (book: NewBookType, { dispatch }) => {
     const response = await booksAPI.postBook(book);
     if (response.status === 200) {
       await booksAPI.getBookById(response.data._id).then(response2=>{
@@ -141,6 +141,7 @@ export const unbookmarkRequest = createAsyncThunk(
     }
   }
 )
+
 
 export const bookSlice = createSlice({
   name: "book",

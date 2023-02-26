@@ -5,7 +5,7 @@ import {
   generateCoverRequest,
   updateBookRequest,
 } from "../../../../Redux/slices/bookSlice";
-import { BookType } from "../../../../Types/Types";
+import { BookType, NewBookType } from "../../../../Types/Types";
 import ChooseAuthorModal from "../Author/ChooseAuthorModal";
 import Modal from "react-modal";
 import { getAuthorById } from "../../../../Redux/slices/authorSlice";
@@ -76,6 +76,9 @@ const EditBookModal = ({
     if (authorId && genre) {
       updatedBook = {
         _id: book._id,
+        users: book.users,
+        createdAt: book.createdAt,
+        creator: book.creator,
         title: data.title.trim(),
         author: authorId.trim(),
         genre: genre.trim(),

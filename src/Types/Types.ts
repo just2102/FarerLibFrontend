@@ -14,9 +14,25 @@ export type BookType = {
   title: string;
   author: AuthorType | string
   genre: string;
-  available: boolean
+  available: boolean;
+  users: []
+  createdAt: string;
+  creator: string;
+  _id: string
   // optional
-  _id?: any
+  year?: number;
+  summary?: string;
+  cover?: any
+};
+
+export type NewBookType = {
+  // necessary
+  title: string;
+  author: string
+  genre: string;
+  available: boolean;
+  // optional
+  _id?: string
   year?: number;
   summary?: string;
   cover?: any

@@ -4,6 +4,30 @@
   padding: 2rem;
   text-align: center;
 }
+.App {
+  /* display: grid;
+  grid-template-columns: 1fr 4fr; */
+}
+.library_sidebar {
+  /* grid-column: 1/2; */
+  background-color: rgba(247, 205, 114, 0.6);
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.library_sidebar a {
+  color: white;
+  transition: 150ms;
+}
+.library_sidebar .active {
+  color:#646cff
+}
+.library {
+  grid-column: 2/3;
+}
 button {
   background-color: rgb(157, 128, 102,0.8) !important;
   color: whitesmoke !important;
@@ -17,7 +41,7 @@ button {
 }
 .preloader_text {
   font-style: italic;
-  color: white;
+  color: rgb(120, 194, 229);
 }
 button:hover {
   border-color: aliceblue !important;
@@ -237,7 +261,7 @@ header a:hover {
   justify-self: stretch;
 }
 
-.library {
+.library_content {
   animation: fadeIn ease 500ms;
   /* display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
@@ -267,6 +291,10 @@ header a:hover {
   flex-direction: column;
   gap:10px;
   justify-content: space-between;
+}
+.book.my {
+  border: 3px solid rgb(245, 204, 108);
+  border-radius: 6px;
 }
 #book_actions {
   background-color: rgba(203, 194, 194, 0.2);
@@ -331,6 +359,19 @@ header a:hover {
 .book_available img {
   width:50px;
 }
+.book_stars {
+
+}
+.book_stars img {
+  width:30px;
+}
+.book_stars_number {
+
+}
+.book_stars_number span {
+  background-color: rgba(148, 148, 148, 0.7);
+  border-radius: 10px;
+}
 .book_edit {
   display: grid;
   align-items: center;
@@ -342,8 +383,24 @@ header a:hover {
 
 
 /* MY BOOKS */
-/* similar to .library */
-
+.mybooks_content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.mybooks .book {
+  all:unset;
+  display: flex;
+  flex-direction: column;
+  background-repeat: no-repeat;
+  color:aliceblue;
+  border: 3px solid rgb(169, 167, 167);
+  border-radius: 5px;
+}
+.mybooks .book.my {
+  border: 3px solid rgb(245, 204, 108);
+  border-radius: 6px;
+}
 
 
 /* AUTHORS */
