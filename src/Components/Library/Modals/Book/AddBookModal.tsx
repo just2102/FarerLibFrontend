@@ -40,6 +40,7 @@ const AddBookModal = ({ closeModal }: Props) => {
     (state) => state.authors.finalSelectedAuthor
   );
   const isGeneratingCover = useAppSelector(state=>state.books.isGeneratingCover)
+  const isAddingBook = useAppSelector(state=>state.books.isAddingBook)
   const dispatch = useAppDispatch();
   // react-hook-form controls
   const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>();
@@ -274,9 +275,10 @@ const AddBookModal = ({ closeModal }: Props) => {
           <input type="file" {...register("cover", {required:coverOption==='upload'})} />
           </>}
           {isGeneratingCover && <Preloader loadingText="Generating cover... This might take a while..."></Preloader> }
+          {isAddingBook && <Preloader loadingText="Adding book..." /> }
           {generatedCover && <img id="generated_cover_preview" src={generatedCover} alt="" /> }
         </fieldset>
-        <button disabled={isGeneratingCover} id="add_book_button" className={`${isGeneratingCover ? "button_disabled" : ""}`}>Add</button>
+        <button disabled={isGeneratingCover || isAddingBook} id="add_book_button" className={`${(isGeneratingCover || isAddingBook) ? "button_disabled" : ""}`}>Add</button>
       </form>
     </div>
   );

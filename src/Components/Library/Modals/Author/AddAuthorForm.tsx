@@ -33,7 +33,7 @@ const AddAuthorForm = ({closeModal}:any) => {
             }
             const response = await dispatch(postAuthorRequest(newAuthor))
             if (response.payload===true) {
-                
+                closeModal()
             }
         }
     }

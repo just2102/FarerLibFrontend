@@ -7,6 +7,7 @@ interface BookState {
   books: BookType[] | [];
   isFetching: boolean;
   isGeneratingCover: boolean;
+  isAddingBook: boolean;
 
   currentUserBooks: BookType[]
 }
@@ -15,6 +16,7 @@ const initialState: BookState = {
   books: [],
   isFetching: false,
   isGeneratingCover: false,
+  isAddingBook: false,
 
   currentUserBooks: [],
 };
@@ -45,6 +47,7 @@ export const getBookById = createAsyncThunk(
 export const postBookRequest = createAsyncThunk(
   `books/postBookRequest`,
   async (book: NewBookType, { dispatch }) => {
+    dispatch(toggleIsAddingBook())
     const response = await booksAPI.postBook(book);
     if (response.status === 200) {
       await booksAPI.getBookById(response.data._id).then(response2=>{
@@ -52,6 +55,7 @@ export const postBookRequest = createAsyncThunk(
       })
       // refetch authors too
       dispatch(getAllAuthors())
+      dispatch(toggleIsAddingBook())
       return true;
     } else return false;
   }
@@ -74,7 +78,6 @@ export const updateBookRequest = createAsyncThunk(
   `books/updateBookRequest`,
   async (book: BookType, { dispatch }) => {
     const response = await booksAPI.updateBookById(book);
-    console.log(response)
     // if update was successful, fetch this book from DB again and change state
     if (response.status === 200) {
       dispatch(getBookById(book._id));
@@ -166,6 +169,9 @@ export const bookSlice = createSlice({
     toggleIsFetching: (state) => {
       state.isFetching = !state.isFetching;
     },
+    toggleIsAddingBook: (state) => {
+      state.isAddingBook = !state.isAddingBook
+    },
     addBookSuccess: (state, action: PayloadAction<BookType>) => {
       state.books = [...state.books, action.payload];
     },
@@ -201,6 +207,8 @@ export const {
   unbookmarkSuccess,
 
   toggleIsFetching,
+  toggleIsAddingBook,
+  
   addBookSuccess,
   deleteBookSuccess,
   updateBookSuccess,
