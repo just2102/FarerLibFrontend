@@ -13,6 +13,10 @@ const Author = ({author}:Props) => {
             <div className="author_latestbook">
                 Latest book: '{latestBook.title}' {latestBook.year && `(${latestBook.year})`}
             </div>}
+
+            <div className="author_numberofbooks">
+                Books: {author.books.length}
+            </div>
             
         </div>
      );

@@ -12,7 +12,7 @@ type Inputs = {
     };
     
 
-const AddAuthorForm = () => {
+const AddAuthorForm = ({closeModal}:any) => {
     const dispatch = useAppDispatch()
     // form controls
     const {register, handleSubmit} = useForm<Inputs>()
@@ -40,7 +40,7 @@ const AddAuthorForm = () => {
     
     return ( 
         <form onSubmit={handleSubmit(onSubmit)} className="add_new_author_form">
-                <h4>Looks like there are no authors yet, but you can add one yourself!</h4>
+                <h4>Add an author <span onClick={closeModal}>x</span></h4>
                 <label htmlFor="firstNameInput">First name*</label>
                 <input required id="firstNameInput" {...register("first_name")} placeholder="Friedrich"  type="text" />
 

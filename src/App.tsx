@@ -30,7 +30,7 @@ function App() {
       <Routes>
         <Route path='/library/*' element={<Library/>}></Route>
         <Route path='/mybooks' element={<MyBooks/>}></Route>
-        <Route path='/authors' element={<Authors/>}></Route>
+        <Route path='/authors/*' element={<Authors/>}></Route>
         <Route path='/login' element={<LoginContainer/>}></Route>
       </Routes>
       {/* <MyBooks></MyBooks> */}

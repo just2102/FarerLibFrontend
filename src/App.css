@@ -10,23 +10,30 @@
 }
 .library_sidebar {
   /* grid-column: 1/2; */
-  background-color: rgba(247, 205, 114, 0.6);
+  background-color: rgba(247, 205, 114, 0.5);
   width: fit-content;
   height: fit-content;
   display: flex;
+  gap:1rem;
+  border-radius: 5%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 .library_sidebar a {
+  border-radius: 10px;
+  padding:10px;
   color: white;
   transition: 150ms;
 }
+.library_sidebar a:hover {
+  color:#67f6f3;
+}
 .library_sidebar .active {
-  color:#646cff
+  color:#67f6f3;
 }
 .library {
-  grid-column: 2/3;
+
 }
 button {
   background-color: rgb(157, 128, 102,0.8) !important;
@@ -109,6 +116,9 @@ header a {
 header a:hover {
   transition: 200ms;
   color: rgb(241, 167, 167);
+}
+header .active {
+  color:rgb(241, 167, 167);
 }
 #header_logo {
   width:12rem;
@@ -225,6 +235,9 @@ header a:hover {
   display: grid;
 
 }
+.add_new_author_form span {
+  cursor: pointer;
+}
 .add_new_author_form label {
 
 }
@@ -278,6 +291,7 @@ header a:hover {
 }
 .book {
   min-height: 300px;
+  min-width: 200px;
   border: 0.5px solid grey;
   border-radius: 8px;
   color: rgb(253, 253, 253);
@@ -405,13 +419,49 @@ header a:hover {
 
 /* AUTHORS */
 .authors_container {
-  animation: fadeIn ease 600ms;
   color:azure;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap:1rem;
 }
+.authors_content {
+  animation: fadeIn ease 500ms;
+  /* display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+  grid-gap: 10px; 
+  justify-items: center; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top:2%;
+}
+
+.authors_sidebar {
+    /* grid-column: 1/2; */
+    /* background-color: rgba(247, 205, 114, 0.5); */
+    display: flex;
+    gap:1rem;
+    border-radius: 5%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.authors_sidebar a {
+    /* background-color: rgba(252, 184, 24, 0.3); */
+    border-radius: 10px;
+    padding:10px;
+    color: white;
+    transition: 150ms;
+}
+.authors_sidebar a:hover {
+  color:#67f6f3;
+}
+.authors_sidebar .active {
+    color:#67f6f3;
+    font-style: italic;
+}
+
 
 .author {
   display: flex;
@@ -419,7 +469,7 @@ header a:hover {
   border: 3px black solid;
   border-radius: 5px;
   font-size: larger;
-  background-color: rgb(250, 235, 215,0.4);
+  background-color: rgba(122, 112, 99, 0.6);
 }
 .author_name {
   font-weight: bold;
@@ -427,6 +477,9 @@ header a:hover {
 }
 .author_latestbook {
 
+}
+.author_numberofbooks {
+  font-style: italic;
 }
 
 /*  */

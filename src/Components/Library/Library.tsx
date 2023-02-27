@@ -9,6 +9,7 @@ import PopularBooks from "./Routes/PopularBooks";
 import AllBooks from "./Routes/AllBooks";
 import NewBooks from "./Routes/NewBooks";
 import AvailableBooks from "./Routes/AvailableBooks";
+import UploadedByMe from "./Routes/UploadedByMe";
 
 
 const Library = () => {
@@ -62,6 +63,15 @@ const Library = () => {
   const availableBooksMapped = availableBooks.map((book,index)=>{
     return <Book key={index} book={book} isFavorite={isBookFavorite(book._id)}></Book>
   })
+// filter books that are uploaded by the current user
+  const uploadedByMeBooks = books?.filter(book=>{
+    if (currentUser) {
+      return book.creator===currentUser.id
+    }
+  })
+  const uploadedByMeBooksMapped = uploadedByMeBooks.map((book,index) => {
+    return <Book key={index} book={book} isFavorite={isBookFavorite(book._id)}></Book>
+  })
   return (
     <>
       <div className="library">
@@ -73,6 +83,7 @@ const Library = () => {
             <Route path='popular' element={<PopularBooks popularBooks={popularBooksMapped}/>}></Route>
             <Route path="new" element={<NewBooks newBooks={thisMonthMapped}/>}></Route>
             <Route path="available" element={<AvailableBooks availableBooks={availableBooksMapped}/>}></Route>
+            <Route path="uploadedbyme" element={<UploadedByMe uploadedByMeBooks={uploadedByMeBooksMapped}/>}></Route>
           </Routes>
         </div>
       </div>
