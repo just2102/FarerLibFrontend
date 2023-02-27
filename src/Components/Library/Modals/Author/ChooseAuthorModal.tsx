@@ -5,6 +5,7 @@ import { getAllAuthors } from "../../../../Redux/slices/authorSlice";
 import { AuthorType } from "../../../../Types/Types";
 import AddAuthorForm from "./AddAuthorForm";
 import FilteredAuthor from "./FilteredAuthor";
+import OtherAuthor from "./OtherAuthor";
 import TopAuthor from "./TopAuthor";
 
 interface Props {
@@ -20,13 +21,30 @@ const ChooseAuthorModal = ({setAuthorModalOpen, finalSelectedAuthor}:Props) => {
             dispatch(getAllAuthors())
         }
     },[finalSelectedAuthor?._id])
-    // displays all authors now, but some mechanism to filter by, e.g. likes, should be implemented in the future
-    const topAuthorsMapped = authors?.map(author=>{
+//  Filter authors by total number of stars their books have (for now, only get those that have more than 2 books)
+    const topAuthors = authors?.filter(author=>{
+        return author.books.length>2
+    })
+    const topAuthorsMapped = topAuthors.map((author,index)=>{
         return <TopAuthor 
+        key={index}
         setAuthorModalOpen={setAuthorModalOpen}
         author={author} 
         finalSelectedAuthor={finalSelectedAuthor} />
     })
+// also get non-top authors (other authors) and display them on condition (if clicked)
+    const [otherAuthorsVisible, setOtherAuthorsVisible] = useState<boolean>(false)
+    const otherAuthors = authors?.filter(author=>{
+        return author.books.length<2
+    })
+    const otherAuthorsMapped = otherAuthors.map((author,index)=>{
+        return <OtherAuthor
+        key={index}
+        setAuthorModalOpen={setAuthorModalOpen}
+        otherAuthor={author}
+        finalSelectedAuthor={finalSelectedAuthor} />
+    })
+    
 
     const [searchValue, setSearchValue] = useState("")
     const [filteredAuthors, setFilteredAuthors] = useState<AuthorType[] | null | undefined>(null)
@@ -55,6 +73,7 @@ const ChooseAuthorModal = ({setAuthorModalOpen, finalSelectedAuthor}:Props) => {
             {authors.length>0 && <>
             {/* display top authors so that user can choose from them without searching */}
             <div className="top_authors">
+                <h3>Top authors</h3>
                 {topAuthorsMapped}
             </div> 
             <input 
@@ -64,8 +83,15 @@ const ChooseAuthorModal = ({setAuthorModalOpen, finalSelectedAuthor}:Props) => {
             onChange={(e)=>{handleSearch(e)}}
             placeholder="Search..." />
 
-            {filteredAuthorsMapped}
-
+            <div className="found_authors">
+                {filteredAuthorsMapped}
+            </div>
+            <div className="other_authors">
+                <>
+                <div onClick={()=>setOtherAuthorsVisible(!otherAuthorsVisible)}><h4>Other authors: <span>↓</span></h4></div>
+                {otherAuthorsVisible && otherAuthorsMapped}
+                </>
+            </div>
             <button onClick={()=>setAuthorModalOpen(false)}>Confirm</button>
             </>}
         </div>

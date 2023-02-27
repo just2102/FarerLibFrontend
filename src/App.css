@@ -8,9 +8,21 @@
   /* display: grid;
   grid-template-columns: 1fr 4fr; */
 }
+form h4 {
+  display: flex;
+  justify-content: space-between;
+}
+form label {
+  padding:3px;
+}
+form input {
+  padding:5px;
+  border-radius: 6px;
+}
+
 .library_sidebar {
   /* grid-column: 1/2; */
-  background-color: rgba(247, 205, 114, 0.5);
+  background-color: rgba(239, 227, 200, 0.5);
   width: fit-content;
   height: fit-content;
   display: flex;
@@ -21,9 +33,11 @@
   align-items: center;
 }
 .library_sidebar a {
+  font-weight: bold;
+  font-size: large;
   border-radius: 10px;
   padding:10px;
-  color: white;
+  color: rgb(66, 57, 57);
   transition: 150ms;
 }
 .library_sidebar a:hover {
@@ -108,6 +122,7 @@ header {
   padding:1.3rem;
   font-size: large;
   font-weight: bold;
+  border-radius: 10px;
 }
 header a {
   color:rgb(146, 83, 83);
@@ -122,6 +137,15 @@ header .active {
 }
 #header_logo {
   width:12rem;
+}
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+  }
+  #header_logo {
+    width: 8rem;
+  }
 }
 .login_section {
   display: flex;
@@ -229,6 +253,16 @@ header .active {
 #top_author {
   color:teal;
 }
+#top_author:hover, #other_author:hover, #filtered_author:hover {
+  cursor: pointer;
+}
+.other_authors {
+  border-top: solid 4px rgb(23, 119, 146);
+  padding:5px;
+}
+.other_authors h4 {
+  margin:0;
+}
 /*  */
 /* add new author form */
 .add_new_author_form {
@@ -290,7 +324,7 @@ header .active {
   color: white;
 }
 .book {
-  min-height: 300px;
+  min-height: 350px;
   min-width: 200px;
   border: 0.5px solid grey;
   border-radius: 8px;
@@ -466,10 +500,10 @@ header .active {
 .author {
   display: flex;
   flex-direction: column;
-  border: 3px black solid;
+  border: 2px rgb(210, 209, 209) solid;
   border-radius: 5px;
   font-size: larger;
-  background-color: rgba(122, 112, 99, 0.6);
+  background-color: rgba(62, 61, 56, 0.8);
 }
 .author_name {
   font-weight: bold;

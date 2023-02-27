@@ -4,14 +4,14 @@ import { setFinalSelectedAuthor } from "../../../../Redux/slices/authorSlice";
 import { AuthorType } from "../../../../Types/Types";
 
 interface Props {
-    author: AuthorType
+    otherAuthor: AuthorType
     finalSelectedAuthor: AuthorType | null
     setAuthorModalOpen: any
 }
 
-const TopAuthor = ({author, finalSelectedAuthor, setAuthorModalOpen}:Props) => {
+const OtherAuthor = ({otherAuthor, finalSelectedAuthor, setAuthorModalOpen}:Props) => {
   let [selectedId, setSelectedId] = useState<string|undefined>("")
-  let isSelected = author._id === finalSelectedAuthor?._id
+  let isSelected = otherAuthor._id === finalSelectedAuthor?._id
 
   const dispatch = useAppDispatch()
   const onAuthorClick = (author:AuthorType) => {
@@ -20,22 +20,19 @@ const TopAuthor = ({author, finalSelectedAuthor, setAuthorModalOpen}:Props) => {
   }
   useEffect(()=>{
     // if (finalSelectedAuthor) {
-    //   if (author._id===finalSelectedAuthor._id) {
-    //     setSelectedId(finalSelectedAuthor._id)
+    //   if (filteredAuthor._id===finalSelectedAuthor._id) {
+    //     setSelectedId(filteredAuthor._id)
     //   }
     // }
-  },[finalSelectedAuthor?._id])
+  },[finalSelectedAuthor])
 
   return (
-    <div id="top_author" onClick={()=>onAuthorClick(author)} className={isSelected ? 'filteredSelectedAuthor' : ''}>
+    <div id="other_author" onClick={()=>onAuthorClick(otherAuthor)} className={isSelected ? 'filteredSelectedAuthor' : ''}>
       <div className="author_name">
-        {author.first_name + " " + author.last_name}
-        <div className="author_books">
-        Books: {author.books.length}
-      </div>
+        {otherAuthor.first_name + " " + otherAuthor.last_name}
       </div>
     </div>
   );
 };
 
-export default TopAuthor;
+export default OtherAuthor;
