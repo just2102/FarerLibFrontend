@@ -20,10 +20,10 @@ const ChooseAuthorModal = ({setAuthorModalOpen, finalSelectedAuthor}:Props) => {
         if (authors.length===0) {
             dispatch(getAllAuthors())
         }
-    },[finalSelectedAuthor?._id])
+    },[finalSelectedAuthor?._id, authors.length])
 //  Filter authors by total number of stars their books have (for now, only get those that have more than 2 books)
     const topAuthors = authors?.filter(author=>{
-        return author.books.length>2
+        return author.books.length>1
     })
     const topAuthorsMapped = topAuthors.map((author,index)=>{
         return <TopAuthor 
@@ -32,12 +32,13 @@ const ChooseAuthorModal = ({setAuthorModalOpen, finalSelectedAuthor}:Props) => {
         author={author} 
         finalSelectedAuthor={finalSelectedAuthor} />
     })
-// also get non-top authors (other authors) and display them on condition (if clicked)
+// also get non-top authors (other authors) and display them on condition (if clicked) 
+// also sort them by alphabet
     const [otherAuthorsVisible, setOtherAuthorsVisible] = useState<boolean>(false)
     const otherAuthors = authors?.filter(author=>{
         return author.books.length<2
     })
-    const otherAuthorsMapped = otherAuthors.map((author,index)=>{
+    const otherAuthorsMapped = otherAuthors.sort((a,b)=>a.first_name.localeCompare(b.first_name)).map((author,index)=>{
         return <OtherAuthor
         key={index}
         setAuthorModalOpen={setAuthorModalOpen}
@@ -48,7 +49,7 @@ const ChooseAuthorModal = ({setAuthorModalOpen, finalSelectedAuthor}:Props) => {
 
     const [searchValue, setSearchValue] = useState("")
     const [filteredAuthors, setFilteredAuthors] = useState<AuthorType[] | null | undefined>(null)
-    const filteredAuthorsMapped = filteredAuthors?.map(filteredAuthor=>{
+    const filteredAuthorsMapped = filteredAuthors?.sort((a,b)=>a.first_name.localeCompare(b.first_name)).map(filteredAuthor=>{
         return <FilteredAuthor
         setAuthorModalOpen={setAuthorModalOpen}
         filteredAuthor={filteredAuthor}

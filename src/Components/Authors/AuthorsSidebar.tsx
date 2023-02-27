@@ -16,7 +16,9 @@ const customStyles = {
       bottom: 'auto',
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
-      borderRadius: "10px"
+      borderRadius: "10px",
+      overflow: "auto",
+      maxHeight: "70vh"
     },
   };
 

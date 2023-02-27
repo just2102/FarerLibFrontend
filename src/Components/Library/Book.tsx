@@ -31,6 +31,8 @@ const customStyles = {
       bottom: 'auto',
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
+      overflow: "auto",
+      maxHeight: "70vh"
     },
   };
 const defaultCover = "https://res.cloudinary.com/do6ggmadv/image/upload/v1676779721/defaultcover_ylne0q.png"

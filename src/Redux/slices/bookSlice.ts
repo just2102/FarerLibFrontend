@@ -140,7 +140,7 @@ export const unbookmarkRequest = createAsyncThunk(
   async ({userId, bookId}:any, {dispatch}) => {
     const response = await booksAPI.unbookmarkRequest(userId, bookId)
     if (response.status===200) {
-      dispatch(unbookmarkSuccess(bookId))
+      dispatch(unbookmarkSuccess({userId,bookId}))
     }
   }
 )
@@ -159,10 +159,19 @@ export const bookSlice = createSlice({
     bookmarkSuccess: (state, action: PayloadAction<BookType>) => {
       state.currentUserBooks.push(action.payload)
     },
-    unbookmarkSuccess: (state, action: PayloadAction<string>) => {
+    unbookmarkSuccess: (state, action: PayloadAction<any>) => {
       for (let i = 0; i<state.currentUserBooks.length; i++) {
-        if (state.currentUserBooks[i]._id===action.payload) {
+        if (state.currentUserBooks[i]._id===action.payload.bookId) {
           state.currentUserBooks.splice(i,1)
+        }
+      }
+      for (let i = 0; i<state.books.length;i++) {
+        if (state.books[i]._id===action.payload.bookId) {
+          for (let j = 0; j<state.books[i].users.length; j++) {
+            if (state.books[i].users[j] === action.payload.userId) {
+              state.books[i].users.splice(j,1)
+            }
+          }
         }
       }
     },
