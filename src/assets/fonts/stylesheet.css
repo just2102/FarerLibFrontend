@@ -1,0 +1,57 @@
+@font-face {
+  font-family: 'Coolvetica Rg';
+  src: url('./assets/fonts/CoolveticaRg-Regular.woff2') format('woff2'),
+      url('./assets/fonts/CoolveticaRg-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Coolvetica Crammed Rg';
+  src: url('./assets/fonts/CoolveticaCrammedRg-Regular.woff2') format('woff2'),
+      url('./assets/fonts/CoolveticaCrammedRg-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Coolvetica Rg Italic';
+  src: url('./assets/fonts/CoolveticaRg-Italic.woff2') format('woff2'),
+      url('./assets/fonts/CoolveticaRg-Italic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Coolvetica Condensed Rg';
+  src: url('./assets/fonts/CoolveticaCondensedRg-Regular.woff2') format('woff2'),
+      url('./assets/fonts/CoolveticaCondensedRg-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Coolvetica Compressed Hv';
+  src: url('./assets/fonts/CoolveticaCompressedHv-Regular.woff2') format('woff2'),
+      url('./assets/fonts/CoolveticaCompressedHv-Regular.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LEMON MILK LIGHT';
+  src: url('./assets/fonts/LEMONMILK-Light.woff2') format('woff2'),
+      url('./assets/fonts/LEMONMILK-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'LEMON MILK REGULAR';
+  src: url('./assets/fonts/LEMONMILK-Regular.woff2') format('woff2'),
+      url('./assets/fonts/LEMONMILK-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

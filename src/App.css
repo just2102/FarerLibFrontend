@@ -1,4 +1,64 @@
+@font-face {
+  font-family: 'Coolvetica Rg';
+  src: url('./assets/fonts/CoolveticaRg-Regular.woff2') format('woff2'),
+      url('./assets/fonts/CoolveticaRg-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Coolvetica Crammed Rg';
+  src: url('./assets/fonts/CoolveticaCrammedRg-Regular.woff2') format('woff2'),
+      url('./assets/fonts/CoolveticaCrammedRg-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Coolvetica Rg Italic';
+  src: url('./assets/fonts/CoolveticaRg-Italic.woff2') format('woff2'),
+      url('./assets/fonts/CoolveticaRg-Italic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Coolvetica Condensed Rg';
+  src: url('./assets/fonts/CoolveticaCondensedRg-Regular.woff2') format('woff2'),
+      url('./assets/fonts/CoolveticaCondensedRg-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Coolvetica Compressed Hv';
+  src: url('./assets/fonts/CoolveticaCompressedHv-Regular.woff2') format('woff2'),
+      url('./assets/fonts/CoolveticaCompressedHv-Regular.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LEMON MILK LIGHT';
+  src: url('./assets/fonts/LEMONMILK-Light.woff2') format('woff2'),
+      url('./assets/fonts/LEMONMILK-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'LEMON MILK REGULAR';
+  src: url('./assets/fonts/LEMONMILK-Regular.woff2') format('woff2'),
+      url('./assets/fonts/LEMONMILK-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+
 #root {
+  font-family: 'Coolvetica Rg';
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -18,12 +78,13 @@ form h4 {
 form label {
   padding:3px;
 }
-form input {
+form input, form textarea {
   padding:5px;
   border-radius: 6px;
 }
 
 .library_sidebar {
+  font-family: 'LEMON MILK REGULAR';
   /* grid-column: 1/2; */
   background-color: rgba(239, 227, 200, 0.5);
   width: fit-content;
@@ -45,6 +106,8 @@ form input {
 }
 .library_sidebar a:hover {
   color:rgb(253, 218, 218);
+  background-color: rgba(111, 104, 95, 0.6);
+  box-shadow: 2px 2px rgb(250, 217, 171);
 }
 .library_sidebar .active {
   color:rgb(253, 211, 211);
@@ -116,6 +179,8 @@ button:hover {
 
 
 header {
+  font-family: 'LEMON MILK REGULAR';
+  font-weight: 300;
   margin-top:-2%;
   display: flex;
   justify-content: space-around;
@@ -331,7 +396,7 @@ header .active {
   min-width: 200px;
   border: 0.5px solid grey;
   border-radius: 8px;
-  color: rgb(253, 253, 253);
+  color: rgb(231, 228, 228);
   font-weight: bolder;
   font-size: large;
   background-size: cover;
@@ -402,7 +467,8 @@ header .active {
   background-color: rgba(94, 87, 87, 0.3) !important;
 }
 .book_summary {
-  background-color: rgba(110, 104, 96, 0.6);
+  background-color: rgba(95, 90, 85, 0.8);
+  padding:10px;
 }
 .book_available {
 
@@ -469,12 +535,13 @@ header .active {
   grid-gap: 10px; 
   justify-items: center; */
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-top:2%;
+  gap:15px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .authors_sidebar {
+    font-family: 'LEMON MILK REGULAR';
     /* grid-column: 1/2; */
     /* background-color: rgba(247, 205, 114, 0.5); */
     display: flex;
@@ -493,6 +560,8 @@ header .active {
 }
 .authors_sidebar a:hover {
   color:rgb(241, 167, 167);
+  background-color: rgb(246, 231, 210,0.2);
+  box-shadow: 2px 2px rgb(250, 217, 171);
 }
 .authors_sidebar .active {
     color:rgb(241, 167, 167);
@@ -501,19 +570,23 @@ header .active {
 
 
 .author {
+  padding:15px;
   display: flex;
   flex-direction: column;
-  border: 2px rgb(210, 209, 209) solid;
-  border-radius: 5px;
+  border: 2px rgb(232, 230, 230,0.6) solid;
+  border-radius: 10px;
   font-size: larger;
   background-color: rgba(62, 61, 56, 0.8);
 }
 .author_name {
+  padding:4px;
   font-weight: bold;
   border:1px solid
 }
 .author_latestbook {
-
+  
+}
+.author_latestbook span {
 }
 .author_numberofbooks {
   font-style: italic;

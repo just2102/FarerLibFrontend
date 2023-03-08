@@ -32,9 +32,10 @@ const Authors = () => {
 
   return <div className="authors_container">
     <h2>Authors</h2>
-    {isFetching && <Preloader loadingText="Loading authors..."/>}
+    {isFetching && <Preloader loadingText="Loading authors..."/>}      
+    <AuthorsSidebar></AuthorsSidebar>
     <div className="authors_content">
-      <AuthorsSidebar></AuthorsSidebar>
+
       <Routes>
         <Route path="" element={(!isFetching && authors.length>0) && <AllAuthors allAuthors={allAuthorsMapped}/>}></Route>
         <Route path="/popular" element={<Popular popularAuthors={popularAuthorsMapped}/>}></Route>
