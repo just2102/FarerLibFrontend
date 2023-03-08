@@ -14,7 +14,7 @@ const Header = () => {
 
     return ( 
         <header className="header">
-            <div><a href="/"><img id="header_logo" src={"https://res.cloudinary.com/do6ggmadv/image/upload/v1676941335/logo2_hfvlcd.png"} alt="logo2" /></a></div>
+            <div><a href="/#/library"><img id="header_logo" src={"https://res.cloudinary.com/do6ggmadv/image/upload/v1676941335/logo2_hfvlcd.png"} alt="logo2" /></a></div>
             <div><NavLink to={"library"}>Library</NavLink></div>
             {isAuthorized && <div><NavLink to={"mybooks"}>My Books</NavLink></div> }
             <div><NavLink to={"authors"}>Authors</NavLink></div>

@@ -7,12 +7,14 @@ interface BookState {
     authors:AuthorType[] | [],
     finalSelectedAuthor: AuthorType | null
     isFetching: boolean
+    isAdding: boolean
 }
 
 const initialState: BookState = {
     authors: [],
     finalSelectedAuthor: null,
-    isFetching: false
+    isFetching: false,
+    isAdding: false
 }
 
 export const getAllAuthors = createAsyncThunk(
@@ -43,11 +45,15 @@ export const getAuthorById = createAsyncThunk(
 export const postAuthorRequest = createAsyncThunk(
     `authors/postAuthorRequest`,
     async(author:AuthorType, {dispatch})=>{
+        dispatch(toggleIsAddingAuthor())
         const response = await authorsAPI.postAuthor(author)
         if (response.status===200) {
             dispatch(postAuthorSuccess(response.data))
+            dispatch(toggleIsAddingAuthor())
             return true
-        } else return false
+        } else {
+            dispatch(toggleIsAddingAuthor())
+            return false}
     }
 )
 
@@ -79,11 +85,19 @@ export const authorSlice = createSlice({
                     }
                 }
             }
+        },
+        toggleIsAddingAuthor:(state) => {
+            state.isAdding = !state.isAdding;
         }
     }
 })
 
 
-export const {setAuthors, toggleIsFetching, setFinalSelectedAuthor, postAuthorSuccess, updateAuthorBook} = authorSlice.actions
+export const {setAuthors, 
+    toggleIsFetching, 
+    setFinalSelectedAuthor, 
+    postAuthorSuccess, 
+    updateAuthorBook, 
+    toggleIsAddingAuthor} = authorSlice.actions
 
 export default authorSlice.reducer

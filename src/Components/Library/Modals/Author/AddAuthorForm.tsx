@@ -1,7 +1,8 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useAppDispatch } from "../../../../Redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../Redux/hooks";
 import { postAuthorRequest } from "../../../../Redux/slices/authorSlice";
 import { AuthorType } from "../../../../Types/Types";
+import Preloader from "../../../Common/Preloader";
 
 type Inputs = {
     first_name: string,
@@ -14,6 +15,7 @@ type Inputs = {
 
 const AddAuthorForm = ({closeModal}:any) => {
     const dispatch = useAppDispatch()
+    const isAdding = useAppSelector(state=>state.authors.isAdding)
     // form controls
     const {register, handleSubmit} = useForm<Inputs>()
     const onSubmit:SubmitHandler<Inputs> = async (data) => {
@@ -52,7 +54,8 @@ const AddAuthorForm = ({closeModal}:any) => {
                 <label htmlFor="dateOfDeathInput">Date of death</label>
                 <input id="dateOfDeathInput" {...register("date_of_death")} type="date" />
 
-                <button id="add_author_button">Add</button>
+                {isAdding && <Preloader loadingText="Adding..." />}
+                <button disabled={isAdding} id="add_author_button" className={isAdding ? "button_disabled" : ""}>Add</button>
             </form> 
      );
 }

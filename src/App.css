@@ -40,14 +40,14 @@ form input {
   font-size: large;
   border-radius: 10px;
   padding:10px;
-  color: rgb(66, 57, 57);
+  color: rgb(146, 83, 83);
   transition: 150ms;
 }
 .library_sidebar a:hover {
-  color:#67f6f3;
+  color:rgb(253, 218, 218);
 }
 .library_sidebar .active {
-  color:#67f6f3;
+  color:rgb(253, 211, 211);
 }
 .library {
 
@@ -492,10 +492,10 @@ header .active {
     transition: 150ms;
 }
 .authors_sidebar a:hover {
-  color:#67f6f3;
+  color:rgb(241, 167, 167);
 }
 .authors_sidebar .active {
-    color:#67f6f3;
+    color:rgb(241, 167, 167);
     font-style: italic;
 }
 
