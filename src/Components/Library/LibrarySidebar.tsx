@@ -53,7 +53,7 @@ const LibrarySidebar = () => {
       <NavLink to={"popular"} end>Popular</NavLink>
       <NavLink to={"new"} end>New Arrivals</NavLink>
       <NavLink to={"available"} end>Available Today</NavLink>
-      <NavLink to={"uploadedbyme"} end>Uploaded By Me</NavLink>
+      {isAuthorized && <NavLink to={"uploadedbyme"} end>Uploaded By Me</NavLink>}
     </div>
   );
 };

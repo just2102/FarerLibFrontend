@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import Authors from './Components/Authors/Authors'
 import Preloader from './Components/Common/Preloader'
+import Footer from './Components/Footer/Footer'
 import Header from './Components/Header/Header'
 import Library from './Components/Library/Library'
 import LoginContainer from './Components/Login/LoginContainer'
@@ -34,7 +35,9 @@ function App() {
         <Route path='/login' element={<LoginContainer/>}></Route>
       </Routes>
       {/* <MyBooks></MyBooks> */}
-    </div>}
+    </div>
+    }
+    <Footer></Footer>
   </>)
 }
 

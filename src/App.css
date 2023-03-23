@@ -61,10 +61,12 @@
   font-family: 'Coolvetica Rg';
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 3rem;
   text-align: center;
 }
 .App {
+  padding-bottom:50px;
+  position: relative;
   /* display: grid;
   grid-template-columns: 1fr 4fr; */
 }
@@ -377,6 +379,8 @@ header .active {
 }
 
 .library_content {
+  background-color: rgba(57, 59, 61, 0.744);
+  padding:10px;
   animation: fadeIn ease 500ms;
   /* display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
@@ -522,6 +526,7 @@ header .active {
 
 /* AUTHORS */
 .authors_container {
+  background-color: rgba(57, 59, 61, 0.744);
   color:azure;
   display: flex;
   flex-direction: column;
@@ -662,4 +667,26 @@ header .active {
 }
 .login_container span:hover {
   cursor: pointer;
+}
+
+
+
+
+footer {
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  width:100%;
+  height:50px; */
+}
+footer img {
+  width:50px;
+  height:50px;
+  transition: 150ms;
+}
+footer img:hover {
+  cursor: pointer;
+  transform: scale(1.06);
 }
