@@ -10,7 +10,8 @@
 ### Own user library
 
 Desktop view (library page):
-![farerlib_desktop](https://user-images.githubusercontent.com/88230737/223655799-f45a49d6-006a-40f6-9437-8f2f3d8ebe13.png)
+![farerlib_desktop](https://user-images.githubusercontent.com/88230737/227090004-c6efc78b-ac67-4269-9eb5-3c6c7f0aa27b.png)
 
 Mobile view (library page):
-![farerlib_mobile](https://user-images.githubusercontent.com/88230737/223655836-5dc30840-dc91-4d2d-bb6f-6c74a39601f8.png)
+![farerlib_mobile](https://user-images.githubusercontent.com/88230737/227090026-dfdfa530-37c9-41b3-b9b7-5dab11b46e29.png)
+
