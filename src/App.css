@@ -1,71 +1,71 @@
 @font-face {
-  font-family: 'Coolvetica Rg';
-  src: url('./assets/fonts/CoolveticaRg-Regular.woff2') format('woff2'),
-      url('./assets/fonts/CoolveticaRg-Regular.woff') format('woff');
+  font-family: "Coolvetica Rg";
+  src: url("./assets/fonts/CoolveticaRg-Regular.woff2") format("woff2"),
+    url("./assets/fonts/CoolveticaRg-Regular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Coolvetica Crammed Rg';
-  src: url('./assets/fonts/CoolveticaCrammedRg-Regular.woff2') format('woff2'),
-      url('./assets/fonts/CoolveticaCrammedRg-Regular.woff') format('woff');
+  font-family: "Coolvetica Crammed Rg";
+  src: url("./assets/fonts/CoolveticaCrammedRg-Regular.woff2") format("woff2"),
+    url("./assets/fonts/CoolveticaCrammedRg-Regular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Coolvetica Rg Italic';
-  src: url('./assets/fonts/CoolveticaRg-Italic.woff2') format('woff2'),
-      url('./assets/fonts/CoolveticaRg-Italic.woff') format('woff');
+  font-family: "Coolvetica Rg Italic";
+  src: url("./assets/fonts/CoolveticaRg-Italic.woff2") format("woff2"),
+    url("./assets/fonts/CoolveticaRg-Italic.woff") format("woff");
   font-weight: normal;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Coolvetica Condensed Rg';
-  src: url('./assets/fonts/CoolveticaCondensedRg-Regular.woff2') format('woff2'),
-      url('./assets/fonts/CoolveticaCondensedRg-Regular.woff') format('woff');
+  font-family: "Coolvetica Condensed Rg";
+  src: url("./assets/fonts/CoolveticaCondensedRg-Regular.woff2") format("woff2"),
+    url("./assets/fonts/CoolveticaCondensedRg-Regular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Coolvetica Compressed Hv';
-  src: url('./assets/fonts/CoolveticaCompressedHv-Regular.woff2') format('woff2'),
-      url('./assets/fonts/CoolveticaCompressedHv-Regular.woff') format('woff');
+  font-family: "Coolvetica Compressed Hv";
+  src: url("./assets/fonts/CoolveticaCompressedHv-Regular.woff2")
+      format("woff2"),
+    url("./assets/fonts/CoolveticaCompressedHv-Regular.woff") format("woff");
   font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'LEMON MILK LIGHT';
-  src: url('./assets/fonts/LEMONMILK-Light.woff2') format('woff2'),
-      url('./assets/fonts/LEMONMILK-Light.woff') format('woff');
+  font-family: "LEMON MILK LIGHT";
+  src: url("./assets/fonts/LEMONMILK-Light.woff2") format("woff2"),
+    url("./assets/fonts/LEMONMILK-Light.woff") format("woff");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'LEMON MILK REGULAR';
-  src: url('./assets/fonts/LEMONMILK-Regular.woff2') format('woff2'),
-      url('./assets/fonts/LEMONMILK-Regular.woff') format('woff');
+  font-family: "LEMON MILK REGULAR";
+  src: url("./assets/fonts/LEMONMILK-Regular.woff2") format("woff2"),
+    url("./assets/fonts/LEMONMILK-Regular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
-
 #root {
-  font-family: 'Coolvetica Rg';
+  font-family: "Coolvetica Rg";
   max-width: 1280px;
   margin: 0 auto;
   padding: 3rem;
   text-align: center;
 }
 .App {
-  padding-bottom:50px;
+  padding-bottom: 50px;
   position: relative;
   /* display: grid;
   grid-template-columns: 1fr 4fr; */
@@ -78,21 +78,22 @@ form h4 {
   justify-content: space-between;
 }
 form label {
-  padding:3px;
+  padding: 3px;
 }
-form input, form textarea {
-  padding:5px;
+form input,
+form textarea {
+  padding: 5px;
   border-radius: 6px;
 }
 
 .library_sidebar {
-  font-family: 'LEMON MILK REGULAR';
+  font-family: "LEMON MILK REGULAR";
   /* grid-column: 1/2; */
   background-color: rgba(239, 227, 200, 0.5);
   width: fit-content;
   height: fit-content;
   display: flex;
-  gap:1rem;
+  gap: 1rem;
   border-radius: 5%;
   flex-direction: column;
   justify-content: center;
@@ -102,23 +103,22 @@ form input, form textarea {
   font-weight: bold;
   font-size: large;
   border-radius: 10px;
-  padding:10px;
+  padding: 10px;
   color: rgb(146, 83, 83);
   transition: 150ms;
 }
 .library_sidebar a:hover {
-  color:rgb(253, 218, 218);
+  color: rgb(253, 218, 218);
   background-color: rgba(111, 104, 95, 0.6);
   box-shadow: 2px 2px rgb(250, 217, 171);
 }
 .library_sidebar .active {
-  color:rgb(253, 211, 211);
+  color: rgb(253, 211, 211);
 }
 .library {
-
 }
 button {
-  background-color: rgb(157, 128, 102,0.8) !important;
+  background-color: rgb(157, 128, 102, 0.8) !important;
   color: whitesmoke !important;
   transition: 200ms !important;
 }
@@ -147,7 +147,6 @@ button:hover {
   box-shadow: 2px 2px rgb(82, 79, 63);
 }
 .button_active:hover {
-  
 }
 @keyframes fadeIn {
   from {
@@ -175,27 +174,26 @@ button:hover {
 }
 .actions_invisible {
   display: none !important;
-  opacity:0;
+  opacity: 0;
   animation: fadeOut 450ms;
 }
 
-
 header {
-  font-family: 'LEMON MILK REGULAR';
+  font-family: "LEMON MILK REGULAR";
   font-weight: 300;
-  margin-top:-2%;
+  margin-top: -2%;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: rgb(218, 195, 144,0.7);
-  color:black;
-  padding:1.3rem;
+  background-color: rgb(218, 195, 144, 0.7);
+  color: black;
+  padding: 1.3rem;
   font-size: large;
   font-weight: bold;
   border-radius: 10px;
 }
 header a {
-  color:rgb(146, 83, 83);
+  color: rgb(146, 83, 83);
   transition: 200ms;
 }
 header a:hover {
@@ -203,10 +201,10 @@ header a:hover {
   color: rgb(241, 167, 167);
 }
 header .active {
-  color:rgb(241, 167, 167);
+  color: rgb(241, 167, 167);
 }
 #header_logo {
-  width:12rem;
+  width: 12rem;
 }
 @media (max-width: 768px) {
   header {
@@ -224,7 +222,7 @@ header .active {
   align-items: center;
 }
 .login_section span {
-  color:rgb(191, 240, 240)
+  color: rgb(191, 240, 240);
 }
 .login_section a {
   cursor: pointer;
@@ -232,22 +230,22 @@ header .active {
 
 /* LIBRARY */
 .library_addbook {
-  margin-top:1%;
+  margin-top: 1%;
 }
 .add_book_modal {
   display: grid;
   justify-items: center;
-  gap:4px;
+  gap: 4px;
 }
 .add_book_modal h2 {
-  margin:0;
+  margin: 0;
 }
 .add_book_modal .preloader {
-  width:30%;
+  width: 30%;
 }
 .add_book_modal .preloader img {
-  width:50%;
-  height:50%;
+  width: 50%;
+  height: 50%;
 }
 .add_book_modal .preloader_text {
   font-size: small;
@@ -255,13 +253,11 @@ header .active {
   padding: 0;
 }
 .add_book_modal label {
-
 }
 .add_book_modal input {
-
 }
 .add_book_modal span {
-  color:red;
+  color: red;
   font-size: small;
   font-style: italic;
 }
@@ -269,12 +265,12 @@ header .active {
 #genres {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap:5px;
+  gap: 5px;
 }
 #newGenre {
   background-color: rgb(249, 246, 243);
   border-radius: 10px;
-  padding:3px;
+  padding: 3px;
   transition: 150ms;
 }
 #newGenre:hover {
@@ -288,8 +284,8 @@ header .active {
   justify-items: center;
 }
 #choose_author_button {
-  margin-top:10px;
-  width:50%;
+  margin-top: 10px;
+  width: 50%;
 }
 /* new summary field */
 #new_summary {
@@ -321,32 +317,32 @@ header .active {
   display: grid;
 }
 #top_author {
-  color:teal;
+  color: teal;
 }
-#top_author:hover, #other_author:hover, #filtered_author:hover {
+#top_author:hover,
+#other_author:hover,
+#filtered_author:hover {
   cursor: pointer;
 }
 .other_authors {
   border-top: solid 4px rgb(23, 119, 146);
-  padding:5px;
+  padding: 10px;
+  color: rgb(93, 68, 57);
 }
 .other_authors h4 {
-  margin:0;
+  margin: 0;
 }
 /*  */
 /* add new author form */
 .add_new_author_form {
   display: grid;
-
 }
 .add_new_author_form span {
   cursor: pointer;
 }
 .add_new_author_form label {
-
 }
 .add_new_author_form input {
-  
 }
 /*  */
 
@@ -367,11 +363,12 @@ header .active {
 .filteredSelectedAuthor {
   background-color: rgb(203, 223, 249) !important;
   cursor: pointer;
+  transition: 200ms;
 }
 
 /* generated cover preview */
 #generated_cover_preview {
-  width:10rem;
+  width: 10rem;
 }
 
 #add_book_button {
@@ -380,7 +377,7 @@ header .active {
 
 .library_content {
   background-color: rgba(57, 59, 61, 0.744);
-  padding:10px;
+  padding: 10px;
   animation: fadeIn ease 500ms;
   /* display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
@@ -389,8 +386,8 @@ header .active {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  gap:10px;
-  margin-top:2%;
+  gap: 10px;
+  margin-top: 2%;
 }
 .library h2 {
   color: white;
@@ -406,10 +403,10 @@ header .active {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  padding:2rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
-  gap:10px;
+  gap: 10px;
   justify-content: space-between;
 }
 .book.my {
@@ -423,7 +420,7 @@ header .active {
   justify-content: end;
 }
 #book_actions img {
-  width:2.8rem;
+  width: 2.8rem;
   transition: 200ms;
 }
 #book_actions img:hover {
@@ -431,35 +428,31 @@ header .active {
   transform: scale(1.1);
 }
 .book_borrow {
-
 }
 .book_delete {
-
 }
 .book_delete img {
-
 }
 .book_delete img:hover {
-
 }
 .book_title {
   background-color: rgba(110, 104, 96, 0.6);
-  padding:5px;
+  padding: 5px;
 
-  border:1px solid;
+  border: 1px solid;
   border-radius: 5px;
 }
 .book_author {
   background-color: rgba(70, 67, 63, 0.6);
-  padding:5px;
+  padding: 5px;
   font-style: italic;
 }
 .book_year {
-  padding:5px;
+  padding: 5px;
   background-color: rgba(110, 104, 96, 0.6);
 }
 .book_genre {
-  padding:5px;
+  padding: 5px;
   background-color: rgba(110, 104, 96, 0.6);
 }
 #book_summary_display_button {
@@ -472,22 +465,19 @@ header .active {
 }
 .book_summary {
   background-color: rgba(95, 90, 85, 0.8);
-  padding:10px;
+  padding: 10px;
 }
 .book_available {
-
 }
 .book_available img {
-  width:50px;
+  width: 50px;
 }
 .book_stars {
-
 }
 .book_stars img {
-  width:30px;
+  width: 30px;
 }
 .book_stars_number {
-
 }
 .book_stars_number span {
   background-color: rgba(148, 148, 148, 0.7);
@@ -499,9 +489,8 @@ header .active {
   justify-items: center;
 }
 #book_edit_button {
-  background-color: rgb(157, 128, 102,0.75) !important;
+  background-color: rgb(157, 128, 102, 0.75) !important;
 }
-
 
 /* MY BOOKS */
 .mybooks_content {
@@ -510,11 +499,11 @@ header .active {
   flex-wrap: wrap;
 }
 .mybooks .book {
-  all:unset;
+  all: unset;
   display: flex;
   flex-direction: column;
   background-repeat: no-repeat;
-  color:aliceblue;
+  color: aliceblue;
   border: 3px solid rgb(169, 167, 167);
   border-radius: 5px;
 }
@@ -523,15 +512,14 @@ header .active {
   border-radius: 6px;
 }
 
-
 /* AUTHORS */
 .authors_container {
   background-color: rgba(57, 59, 61, 0.744);
-  color:azure;
+  color: azure;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap:1rem;
+  gap: 1rem;
 }
 .authors_content {
   animation: fadeIn ease 500ms;
@@ -540,56 +528,54 @@ header .active {
   grid-gap: 10px; 
   justify-items: center; */
   display: flex;
-  gap:15px;
+  gap: 15px;
   justify-content: center;
   flex-wrap: wrap;
 }
 
 .authors_sidebar {
-    font-family: 'LEMON MILK REGULAR';
-    /* grid-column: 1/2; */
-    /* background-color: rgba(247, 205, 114, 0.5); */
-    display: flex;
-    gap:1rem;
-    border-radius: 5%;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  font-family: "LEMON MILK REGULAR";
+  /* grid-column: 1/2; */
+  /* background-color: rgba(247, 205, 114, 0.5); */
+  display: flex;
+  gap: 1rem;
+  border-radius: 5%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .authors_sidebar a {
-    /* background-color: rgba(252, 184, 24, 0.3); */
-    border-radius: 10px;
-    padding:10px;
-    color: white;
-    transition: 150ms;
+  /* background-color: rgba(252, 184, 24, 0.3); */
+  border-radius: 10px;
+  padding: 10px;
+  color: white;
+  transition: 150ms;
 }
 .authors_sidebar a:hover {
-  color:rgb(241, 167, 167);
-  background-color: rgb(246, 231, 210,0.2);
+  color: rgb(241, 167, 167);
+  background-color: rgb(246, 231, 210, 0.2);
   box-shadow: 2px 2px rgb(250, 217, 171);
 }
 .authors_sidebar .active {
-    color:rgb(241, 167, 167);
-    font-style: italic;
+  color: rgb(241, 167, 167);
+  font-style: italic;
 }
 
-
 .author {
-  padding:15px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
-  border: 2px rgb(232, 230, 230,0.6) solid;
+  border: 2px rgb(232, 230, 230, 0.6) solid;
   border-radius: 10px;
   font-size: larger;
   background-color: rgba(62, 61, 56, 0.8);
 }
 .author_name {
-  padding:4px;
+  padding: 4px;
   font-weight: bold;
-  border:1px solid
+  border: 1px solid;
 }
 .author_latestbook {
-  
 }
 .author_latestbook span {
 }
@@ -611,16 +597,16 @@ header .active {
 }
 .login_container {
   background-color: rgb(184, 166, 126, 0.8);
-  color:rgb(48, 42, 30);
-  width:fit-content;
+  color: rgb(48, 42, 30);
+  width: fit-content;
   height: fit-content;
   border: 2px solid azure;
   border-radius: 6px;
-  margin-top:5%;
+  margin-top: 5%;
   display: grid;
   justify-items: center;
-  gap:15px;
-  padding:2rem;
+  gap: 15px;
+  padding: 2rem;
 }
 .login_label {
   font-style: italic;
@@ -628,21 +614,21 @@ header .active {
 .login_input {
   font-size: medium;
   font-weight: bold;
-  padding:3px;
-  background-color: rgb(169, 224, 250,0.4);
+  padding: 3px;
+  background-color: rgb(169, 224, 250, 0.4);
   border-radius: 5px;
   box-shadow: 2px 2px rgb(69, 238, 224);
 }
 .login_input_error {
-  color:rgb(242, 126, 126);
+  color: rgb(242, 126, 126);
   font-size: smaller;
   font-style: italic;
 }
 .login_submit {
-  padding:5px;
+  padding: 5px;
   border-radius: 6px;
   background-color: rgb(194, 218, 241);
-  color:rgb(67, 66, 66);
+  color: rgb(67, 66, 66);
   transition: 200ms;
   border-color: rgb(124, 245, 226);
   box-shadow: 1px 1px rgb(23, 119, 146);
@@ -652,7 +638,7 @@ header .active {
 }
 .login_submit:hover {
   background-color: rgb(164, 210, 253);
-  color:rgb(9, 9, 9);
+  color: rgb(9, 9, 9);
   cursor: pointer;
   transform: scale(1.1);
   font-weight: bolder;
@@ -663,14 +649,11 @@ header .active {
   margin: 0;
 }
 .login_container span {
-  color:rgb(204, 233, 252);
+  color: rgb(204, 233, 252);
 }
 .login_container span:hover {
   cursor: pointer;
 }
-
-
-
 
 footer {
   /* display: flex;
@@ -682,8 +665,8 @@ footer {
   height:50px; */
 }
 footer img {
-  width:50px;
-  height:50px;
+  width: 50px;
+  height: 50px;
   transition: 150ms;
 }
 footer img:hover {
